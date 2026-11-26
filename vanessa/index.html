@@ -1,0 +1,2343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bitácora Operativa — Plan No. SGO/39-2026 | PNC Guatemala</title>
+  <meta name="theme-color" content="#0B1F3A" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --pnc-navy: #0B1F3A;
+      --pnc-navy-light: #15315B;
+      --pnc-gold: #C99700;
+      --pnc-gold-light: #F3D16B;
+    }
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #F3F5F9;
+      color: #0F172A;
+    }
+    .pnc-header-bg {
+      background: linear-gradient(135deg, #09182E 0%, #132C52 65%, #1B3B6B 100%);
+    }
+    .tab-btn {
+      transition: all 0.18s ease;
+    }
+    .tab-btn.active {
+      background-color: #0B1F3A;
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(11, 31, 58, 0.22);
+    }
+    .tab-btn:not(.active):hover {
+      background-color: #E2E8F0;
+      color: #0B1F3A;
+    }
+    .card-surface {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 0.875rem;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+    }
+    .toast-enter {
+      animation: slideUpFade 0.25s ease-out forwards;
+    }
+    @keyframes slideUpFade {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-only {
+        display: block !important;
+      }
+      #view-informe {
+        display: block !important;
+      }
+      #report-printable {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .page-break-inside-avoid {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- TOP INSTITUTIONAL HEADER -->
+  <header class="pnc-header-bg text-white shadow-md no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div class="flex items-start sm:items-center gap-3.5">
+          <!-- Institutional Shield SVG -->
+          <div class="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-400/40 flex items-center justify-center shrink-0">
+            <svg class="w-7 h-7 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3z"/>
+              <path d="M12 7l1.5 3 3.3.5-2.4 2.3.6 3.2-3-1.6-3 1.6.6-3.2-2.4-2.3 3.3-.5L12 7z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                Plan No. SGO/39-2026
+              </span>
+              <span class="text-[11px] font-medium uppercase tracking-wider px-2 py-0.5 rounded bg-white/10 text-slate-200">
+                Código DOC-SGO · Confidencial
+              </span>
+            </div>
+            <h1 class="text-lg sm:text-xl font-bold tracking-tight mt-1">
+              Bitácora de Fortalecimiento Operativo — Distrito Central y Sur
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-300 mt-0.5">
+              Policía Nacional Civil · Subdirección General de Operaciones · Vigencia: 25 nov – 31 dic 2026 (37 días)
+            </p>
+          </div>
+        </div>
+
+        <!-- Officer Profile Pill -->
+        <div class="flex flex-wrap items-center gap-3 bg-white/10 border border-white/15 rounded-xl px-3.5 py-2.5">
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <span id="hdr-grado" class="text-[11px] font-bold uppercase tracking-wide text-amber-300">OFICIAL TERCERO</span>
+              <span class="text-slate-400">•</span>
+              <span id="hdr-comisaria" class="text-xs font-semibold text-white">Comisaría 14</span>
+            </div>
+            <p id="hdr-nombre" class="text-sm font-semibold text-white truncate">VANESSA RIVAS ALVAREZ</p>
+            <p id="hdr-origen" class="text-[11px] text-slate-300 truncate max-w-xs">Origen: SGO DISETUR · Sector: Sin asignar</p>
+          </div>
+                    <button id="btn-install-pwa" type="button" class="hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-xs transition shrink-0">
+            <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+            Instalar App
+          </button>
+          <button id="btn-open-profile" type="button" class="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-xs transition shrink-0">
+            <i data-lucide="user-cog" class="w-3.5 h-3.5"></i>
+            Editar Ficha
+          </button>
+        </div>
+      </div>
+
+      <!-- Plan Progress Bar -->
+      <div class="mt-4 pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-slate-200">
+          <span id="hdr-day-indicator" class="font-semibold text-amber-300">Día 1 de 37</span>
+          <span id="hdr-phase-indicator" class="text-slate-200">Fase actual: II. Reconcentración</span>
+          <span id="hdr-records-count" class="text-slate-300">0 actividades registradas</span>
+        </div>
+        <div class="w-full sm:w-64 bg-white/15 rounded-full h-2 overflow-hidden">
+          <div id="hdr-progress-bar" class="bg-amber-400 h-2 rounded-full transition-all duration-300" style="width: 3%;"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION BAR -->
+  <nav class="bg-white border-b border-slate-200 sticky top-0 z-30 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5 sm:pb-0" role="tablist" aria-label="Secciones de la bitácora">
+        <button type="button" data-tab="resumen" class="tab-btn active inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+          Resumen
+        </button>
+        <button type="button" data-tab="registrar" class="tab-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 whitespace-nowrap">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i>
+          Registrar Actividad
+        </button>
+        <button type="button" data-tab="bitacora" class="tab-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 whitespace-nowrap">
+          <i data-lucide="clipboard-list" class="w-4 h-4"></i>
+          Bitácora Diaria
+        </button>
+        <button type="button" data-tab="evaluacion" class="tab-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 whitespace-nowrap">
+          <i data-lucide="scale" class="w-4 h-4"></i>
+          Matriz 60/30/10
+        </button>
+        <button type="button" data-tab="informe" class="tab-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 whitespace-nowrap">
+          <i data-lucide="file-text" class="w-4 h-4"></i>
+          Informe Final
+        </button>
+      </div>
+
+      <div class="hidden md:flex items-center gap-2 shrink-0">
+        <button id="btn-demo-top" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-medium transition">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-600"></i>
+          Cargar Ejemplo
+        </button>
+        <button id="btn-export-json-top" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium transition">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+          Respaldo
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ==================== VIEW 1: RESUMEN ==================== -->
+    <section id="view-resumen" class="space-y-6">
+      <!-- Empty State Banner (shown when 0 activities) -->
+      <div id="empty-banner" class="card-surface p-5 border-l-4 border-l-amber-500 bg-amber-50/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h2 class="text-sm sm:text-base font-bold text-slate-900">Bitácora lista para el despliegue en Comisaría 14</h2>
+            <p class="text-xs sm:text-sm text-slate-600 mt-0.5">
+              Tus datos de la nómina oficial ya están precargados. Comienza registrando tu primera actividad diaria o carga un conjunto de ejemplo para explorar las gráficas, la matriz 60/30/10 y el informe consolidado.
+            </p>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <button id="btn-start-first" type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#0B1F3A] hover:bg-[#15315B] text-white text-xs sm:text-sm font-semibold transition">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            Registrar primera actividad
+          </button>
+          <button id="btn-load-demo-empty" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-amber-400 bg-white hover:bg-amber-50 text-amber-900 text-xs sm:text-sm font-semibold transition">
+            <i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i>
+            Probar con datos de ejemplo
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="card-surface p-4">
+          <div class="flex items-center justify-between text-xs font-medium text-slate-500">
+            <span>Días con Registro</span>
+            <i data-lucide="calendar-check" class="w-4 h-4 text-blue-700"></i>
+          </div>
+          <p id="kpi-dias" class="text-2xl font-bold text-slate-900 mt-2">0 <span class="text-sm font-normal text-slate-400">/ 37</span></p>
+          <p id="kpi-dias-sub" class="text-xs text-slate-500 mt-1">0% de cobertura del plan</p>
+        </div>
+
+        <div class="card-surface p-4">
+          <div class="flex items-center justify-between text-xs font-medium text-slate-500">
+            <span>Hechos Positivos</span>
+            <i data-lucide="award" class="w-4 h-4 text-emerald-600"></i>
+          </div>
+          <p id="kpi-positivos" class="text-2xl font-bold text-emerald-700 mt-2">0</p>
+          <p id="kpi-positivos-sub" class="text-xs text-slate-500 mt-1">0 capturas · 0 operativos</p>
+        </div>
+
+        <div class="card-surface p-4">
+          <div class="flex items-center justify-between text-xs font-medium text-slate-500">
+            <span>Supervisiones</span>
+            <i data-lucide="eye" class="w-4 h-4 text-indigo-600"></i>
+          </div>
+          <p id="kpi-supervisiones" class="text-2xl font-bold text-indigo-700 mt-2">0</p>
+          <p id="kpi-supervisiones-sub" class="text-xs text-slate-500 mt-1">0 patrullajes · 0 agentes verif.</p>
+        </div>
+
+        <div class="card-surface p-4">
+          <div class="flex items-center justify-between text-xs font-medium text-slate-500">
+            <span>Incidencia Criminal</span>
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-600"></i>
+          </div>
+          <p id="kpi-incidencia" class="text-2xl font-bold text-rose-700 mt-2">0</p>
+          <p id="kpi-incidencia-sub" class="text-xs text-slate-500 mt-1">0 vida · 0 patrimonio</p>
+        </div>
+
+        <div class="card-surface p-4 bg-gradient-to-br from-[#0B1F3A] to-[#16345F] text-white border-none">
+          <div class="flex items-center justify-between text-xs font-medium text-slate-300">
+            <span>Puntaje Estimado</span>
+            <i data-lucide="target" class="w-4 h-4 text-amber-400"></i>
+          </div>
+          <p id="kpi-puntaje" class="text-2xl font-bold text-amber-300 mt-2">0.0%</p>
+          <p id="kpi-dictamen" class="text-xs text-slate-200 mt-1 truncate">Sin registros aún</p>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <div class="card-surface p-5 lg:col-span-7">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900">Evolución Operativa por Fecha</h3>
+              <p class="text-xs text-slate-500">Comparativo de hechos positivos, acciones de supervisión e incidencia registrada</p>
+            </div>
+          </div>
+          <div class="relative h-72">
+            <canvas id="chart-timeline"></canvas>
+          </div>
+        </div>
+
+        <div class="card-surface p-5 lg:col-span-5">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900">Desglose de Resultados Clave</h3>
+              <p class="text-xs text-slate-500">Acumulado de indicadores operativos del sector asignado</p>
+            </div>
+          </div>
+          <div class="relative h-72">
+            <canvas id="chart-breakdown"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phases Timeline (Section VI.B) -->
+      <div class="card-surface p-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+          <div>
+            <h3 class="text-sm font-bold text-slate-900">Fases de Ejecución del Plan No. SGO/39-2026 (Sección VI.B)</h3>
+            <p class="text-xs text-slate-500">Seguimiento de actividades documentadas por fase del período de 37 días</p>
+          </div>
+          <span class="text-xs font-medium text-slate-500">25 nov 2026 — 31 dic 2026</span>
+        </div>
+        <div id="phases-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 2: REGISTRAR ACTIVIDAD ==================== -->
+    <section id="view-registrar" class="hidden space-y-5">
+      <div class="card-surface p-5 sm:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200">
+          <div>
+            <h2 id="form-title" class="text-base sm:text-lg font-bold text-slate-900">Registrar Actividad Operativa Diaria</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+              Documenta hechos positivos, supervisión de servicios o novedades de incidencia criminal según la Sección VII.A del Plan.
+            </p>
+          </div>
+          <button id="btn-cancel-edit" type="button" class="hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-100">
+            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+            Cancelar edición
+          </button>
+        </div>
+
+        <form id="activity-form" class="mt-5 space-y-5">
+          <input type="hidden" id="edit-id" value="" />
+
+          <!-- Row 1: Date, Time, Shift, Phase, Sector -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div>
+              <label for="f-fecha" class="block text-xs font-semibold text-slate-700 mb-1">Fecha *</label>
+              <input id="f-fecha" type="date" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/30 focus:border-blue-900" />
+            </div>
+            <div>
+              <label for="f-hora" class="block text-xs font-semibold text-slate-700 mb-1">Hora</label>
+              <input id="f-hora" type="time" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/30 focus:border-blue-900" />
+            </div>
+            <div>
+              <label for="f-fase" class="block text-xs font-semibold text-slate-700 mb-1">Fase del Plan</label>
+              <select id="f-fase" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/30 focus:border-blue-900">
+                <option value="Fase I">Fase I · Organización</option>
+                <option value="Fase II">Fase II · Reconcentración (Días 1–3)</option>
+                <option value="Fase III">Fase III · Supervisión operativa (Días 4–26)</option>
+                <option value="Fase IV">Fase IV · Fortalecimiento (Días 27–30)</option>
+                <option value="Fase V">Fase V · Evaluación final (Día 31–37)</option>
+              </select>
+            </div>
+            <div>
+              <label for="f-turno" class="block text-xs font-semibold text-slate-700 mb-1">Turno / Jornada</label>
+              <select id="f-turno" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/30 focus:border-blue-900">
+                <option value="Diurno">Diurno</option>
+                <option value="Nocturno">Nocturno</option>
+                <option value="24 horas">Jornada 24 horas</option>
+                <option value="Operativo especial">Operativo especial</option>
+              </select>
+            </div>
+            <div>
+              <label for="f-sector" class="block text-xs font-semibold text-slate-700 mb-1">Sector / Ubicación</label>
+              <input id="f-sector" type="text" placeholder="Ej. Zona 7 / Colonia Bethania" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/30 focus:border-blue-900" />
+            </div>
+          </div>
+
+          <!-- Row 2: Pillar Selection -->
+          <div>
+            <span class="block text-xs font-semibold text-slate-700 mb-2">Pilar de Evaluación al que corresponde *</span>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <label class="cursor-pointer">
+                <input type="radio" name="pilar" value="positivos" class="peer sr-only" checked />
+                <div class="p-3.5 rounded-xl border-2 border-slate-200 peer-checked:border-emerald-600 peer-checked:bg-emerald-50/70 transition">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm font-bold text-slate-900">Hecho Positivo</span>
+                    <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">30%</span>
+                  </div>
+                  <p class="text-xs text-slate-600 mt-1">Capturas, incautaciones, operativos focalizados, identificaciones, apoyo ciudadano.</p>
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="radio" name="pilar" value="supervision" class="peer sr-only" />
+                <div class="p-3.5 rounded-xl border-2 border-slate-200 peer-checked:border-indigo-600 peer-checked:bg-indigo-50/70 transition">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm font-bold text-slate-900">Supervisión Efectiva</span>
+                    <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-indigo-100 text-indigo-800">10%</span>
+                  </div>
+                  <p class="text-xs text-slate-600 mt-1">Control de patrullajes, disciplina y consignas, coordinación de mando, reporte CECOIN/110.</p>
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="radio" name="pilar" value="incidencia" class="peer sr-only" />
+                <div class="p-3.5 rounded-xl border-2 border-slate-200 peer-checked:border-rose-600 peer-checked:bg-rose-50/70 transition">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm font-bold text-slate-900">Incidencia Criminal</span>
+                    <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-800">60%</span>
+                  </div>
+                  <p class="text-xs text-slate-600 mt-1">Registro y atención de hechos contra la vida, el patrimonio o incidentes del sector.</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Row 3: Subtype & Reporting Channel -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="f-subtipo" class="block text-xs font-semibold text-slate-700 mb-1">Tipo de Actividad / Categoría *</label>
+              <select id="f-subtipo" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/30 focus:border-blue-900">
+                <!-- Populated dynamically based on pillar -->
+              </select>
+            </div>
+            <div>
+              <label for="f-canal" class="block text-xs font-semibold text-slate-700 mb-1">Canal de Reporte / Coordinación</label>
+              <select id="f-canal" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/30 focus:border-blue-900">
+                <option value="CECOIN">CECOIN (Estación Control de Red Principal)</option>
+                <option value="Águila Séptimo (110)">Oficina de Coordinación Policial "Águila Séptimo" (110)</option>
+                <option value="Jefatura Comisaría 14">Jefatura de Comisaría 14</option>
+                <option value="Jefatura Distrito Central">Jefatura del Distrito Central y Sur</option>
+                <option value="División de Operaciones Conjuntas (SGO)">División de Operaciones Conjuntas (SGO)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 4: Dynamic Quantitative Metrics -->
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-600 mb-3">Indicadores Cuantitativos de esta Actividad</h3>
+
+            <!-- Metrics: Positivos -->
+            <div id="metrics-positivos" class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+              <div>
+                <label for="m-capturas" class="block text-xs font-medium text-slate-700 mb-1">Capturas / Aprehens.</label>
+                <input id="m-capturas" type="number" min="0" value="0" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm bg-white" />
+              </div>
+              <div>
+                <label for="m-armas" class="block text-xs font-medium text-slate-700 mb-1">Armas incautadas</label>
+                <input id="m-armas" type="number" min="0" value="0" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm bg-white" />
+              </div>
+              <div>
+                <label for="m-vehiculos" class="block text-xs font-medium text-slate-700 mb-1">Vehíc./Motos recup.</label>
+                <input id="m-vehiculos" type="number" min="0" value="0" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm bg-white" />
+              </div>
+              <div>
+                <label for="m-identificaciones" class="block text-xs font-medium text-slate-700 mb-1">Personas identif.</label>
+                <input id="m-identificaciones" type="number" min="0" value="0" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm bg-white" />
+              </div>
+              <div>
+                <label for="m-operativos" class="block text-xs font-medium text-slate-700 mb-1">Operativos focaliz.</label>
+                <input id="m-operativos" type="number" min="0" value="1" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm bg-white" />
+              </div>
+            </div>
+
+            <!-- Metrics: Supervision -->
+            <div id="metrics-supervision" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label for="m-patrullajes" class="block text-xs font-medium text-slate-700 mb-1">Patrullajes / Puestos supervisados</label>
+                <input id="m-patrullajes" type="number" min="0" value="1" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm bg-white" />
+              </div>
+              <div>
+                <label for="m-agentes" class="block text-xs font-medium text-slate-700 mb-1">Agentes verificados en servicio</label>
+                <input id="m-agentes" type="number" min="0" value="0" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm bg-white" />
+              </div>
+              <div>
+                <label for="m-operativos-sup" class="block text-xs font-medium text-slate-700 mb-1">Operativos coordinados</label>
+                <input id="m-operativos-sup" type="number" min="0" value="0" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm bg-white" />
+              </div>
+            </div>
+
+            <!-- Metrics: Incidencia -->
+            <div id="metrics-incidencia" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label for="m-vida" class="block text-xs font-medium text-slate-700 mb-1">Hechos contra la vida</label>
+                <input id="m-vida" type="number" min="0" value="0" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm bg-white" />
+              </div>
+              <div>
+                <label for="m-patrimonio" class="block text-xs font-medium text-slate-700 mb-1">Hechos contra el patrimonio</label>
+                <input id="m-patrimonio" type="number" min="0" value="1" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm bg-white" />
+              </div>
+              <div>
+                <label for="m-otros" class="block text-xs font-medium text-slate-700 mb-1">Otros incidentes delictivos</label>
+                <input id="m-otros" type="number" min="0" value="0" class="w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm bg-white" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 5: Descriptions -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div class="lg:col-span-3">
+              <label for="f-descripcion" class="block text-xs font-semibold text-slate-700 mb-1">Descripción detallada de la actividad / resultados *</label>
+              <textarea id="f-descripcion" rows="3" required placeholder="Describe las acciones realizadas, unidades involucradas (radio patrullas, motocicletas), resultados concretos y horarios..." class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/30 focus:border-blue-900"></textarea>
+            </div>
+            <div class="lg:col-span-1">
+              <label for="f-novedades" class="block text-xs font-semibold text-slate-700 mb-1">Novedades / Deficiencias identificadas</label>
+              <textarea id="f-novedades" rows="2" placeholder="Ej. Puesto sin cobertura, necesidad de refuerzo en punto crítico..." class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/30 focus:border-blue-900"></textarea>
+            </div>
+            <div class="lg:col-span-2">
+              <label for="f-correctivas" class="block text-xs font-semibold text-slate-700 mb-1">Medidas correctivas o propuestas de prevención aplicadas</label>
+              <textarea id="f-correctivas" rows="2" placeholder="Ej. Redistribución de patrullaje motorizado, consigna específica al personal, coordinación con Comisaría 14..." class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/30 focus:border-blue-900"></textarea>
+            </div>
+          </div>
+
+          <!-- Row 6: Compliance & Submit -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-slate-200">
+            <label class="inline-flex items-center gap-2 text-xs sm:text-sm text-slate-700 cursor-pointer">
+              <input id="f-ddhh" type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-blue-900 focus:ring-blue-900" />
+              <span>Actuación desarrollada con apego a la legalidad, derechos humanos y protocolos institucionales (Sección VII.A.9)</span>
+            </label>
+            <div class="flex items-center gap-2 shrink-0">
+              <button id="btn-reset-form" type="button" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-700 text-sm font-medium hover:bg-slate-50 transition">
+                Limpiar
+              </button>
+              <button id="btn-submit-activity" type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#0B1F3A] hover:bg-[#15315B] text-white text-sm font-semibold shadow-sm transition">
+                <i data-lucide="save" class="w-4 h-4"></i>
+                <span id="btn-submit-label">Guardar Actividad</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: BITÁCORA DIARIA ==================== -->
+    <section id="view-bitacora" class="hidden space-y-5">
+      <div class="card-surface p-5">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Bitácora Diaria Consolidada</h2>
+            <p class="text-xs sm:text-sm text-slate-500">Filtra, edita o exporta tus registros diarios para respaldo o envío a CECOIN / SGO.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button id="btn-export-csv" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold transition">
+              <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i>
+              Exportar CSV
+            </button>
+            <button id="btn-export-json" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition">
+              <i data-lucide="download" class="w-3.5 h-3.5"></i>
+              Respaldar JSON
+            </button>
+            <label class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition cursor-pointer">
+              <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+              Importar JSON
+              <input id="input-import-json" type="file" accept="application/json,.json" class="hidden" />
+            </label>
+            <button id="btn-clear-all" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold transition">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              Limpiar todo
+            </button>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 my-4">
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+            <input id="filter-search" type="text" placeholder="Buscar por descripción, sector o novedad..." class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/25" />
+          </div>
+          <select id="filter-pilar" class="rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white">
+            <option value="all">Todos los pilares</option>
+            <option value="positivos">Hechos Positivos (30%)</option>
+            <option value="supervision">Supervisión Efectiva (10%)</option>
+            <option value="incidencia">Incidencia Criminal (60%)</option>
+          </select>
+          <select id="filter-fase" class="rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white">
+            <option value="all">Todas las fases</option>
+            <option value="Fase I">Fase I · Organización</option>
+            <option value="Fase II">Fase II · Reconcentración</option>
+            <option value="Fase III">Fase III · Supervisión operativa</option>
+            <option value="Fase IV">Fase IV · Fortalecimiento</option>
+            <option value="Fase V">Fase V · Evaluación final</option>
+          </select>
+        </div>
+
+        <!-- Activity List -->
+        <div id="bitacora-list" class="space-y-3">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 4: MATRIZ DE EVALUACIÓN ==================== -->
+    <section id="view-evaluacion" class="hidden space-y-6">
+      <!-- Official Weighting Matrix (Section VII.A) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <div class="card-surface p-5 lg:col-span-7 space-y-5">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">Matriz de Ponderación Oficial (Sección VII.A)</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+              Ajusta tus metas de sector asignadas por Comisaría 14 o CECOIN para calcular tu puntuación ponderada en tiempo real.
+            </p>
+          </div>
+
+          <!-- Pilar 1: 60% -->
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/70 space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <span class="text-xs font-bold uppercase text-rose-700">Indicador 1 · Ponderación 60%</span>
+                <h3 class="text-sm font-bold text-slate-900">Reducción de la incidencia criminal en el sector asignado</h3>
+              </div>
+              <span id="eval-score-incidencia" class="text-lg font-bold text-slate-900">0.0 / 60</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label for="eval-baseline-inc" class="block text-xs font-medium text-slate-700 mb-1">Línea base histórica del sector (hechos en 37 días previos)</label>
+                <input id="eval-baseline-inc" type="number" min="1" value="20" class="w-full rounded-lg border border-slate-300 px-3 py-1.5 text-sm bg-white" />
+              </div>
+              <div>
+                <label for="eval-manual-inc" class="block text-xs font-medium text-slate-700 mb-1">% Cumplimiento oficial CECOIN (opcional, sobrescribe cálculo)</label>
+                <input id="eval-manual-inc" type="number" min="0" max="100" placeholder="Automático según bitácora" class="w-full rounded-lg border border-slate-300 px-3 py-1.5 text-sm bg-white" />
+              </div>
+            </div>
+            <p id="eval-inc-detail" class="text-xs text-slate-600">Incidencia registrada en bitácora: 0 hechos frente a línea base de 20.</p>
+          </div>
+
+          <!-- Pilar 2: 30% -->
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/70 space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <span class="text-xs font-bold uppercase text-emerald-700">Indicador 2 · Ponderación 30%</span>
+                <h3 class="text-sm font-bold text-slate-900">Incremento de hechos positivos</h3>
+              </div>
+              <span id="eval-score-positivos" class="text-lg font-bold text-slate-900">0.0 / 30</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
+              <div>
+                <label for="eval-meta-pos" class="block text-xs font-medium text-slate-700 mb-1">Meta de acciones / hechos positivos del período</label>
+                <input id="eval-meta-pos" type="number" min="1" value="30" class="w-full rounded-lg border border-slate-300 px-3 py-1.5 text-sm bg-white" />
+              </div>
+              <p id="eval-pos-detail" class="text-xs text-slate-600 pb-2">Acumulado en bitácora: 0 hechos positivos.</p>
+            </div>
+          </div>
+
+          <!-- Pilar 3: 10% -->
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/70 space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <span class="text-xs font-bold uppercase text-indigo-700">Indicador 3 · Ponderación 10%</span>
+                <h3 class="text-sm font-bold text-slate-900">Supervisión efectiva del personal y los servicios policiales</h3>
+              </div>
+              <span id="eval-score-supervision" class="text-lg font-bold text-slate-900">0.0 / 10</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-end">
+              <div>
+                <label for="eval-meta-sup" class="block text-xs font-medium text-slate-700 mb-1">Meta de actividades de supervisión (1 por día = 37)</label>
+                <input id="eval-meta-sup" type="number" min="1" value="37" class="w-full rounded-lg border border-slate-300 px-3 py-1.5 text-sm bg-white" />
+              </div>
+              <p id="eval-sup-detail" class="text-xs text-slate-600 pb-2">Supervisiones registradas: 0 · Responsabilidades marcadas: 0/9.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Total Score & Section VII.B Criteria -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="card-surface p-5 bg-[#0B1F3A] text-white border-none">
+            <p class="text-xs font-semibold uppercase tracking-wider text-amber-300">Resultado Consolidado Estimado</p>
+            <div class="flex items-baseline gap-2 mt-2">
+              <span id="eval-total-score" class="text-4xl font-extrabold text-white">0.0%</span>
+              <span class="text-sm text-slate-300">/ 100%</span>
+            </div>
+            <div class="w-full bg-white/15 rounded-full h-2.5 mt-3 overflow-hidden">
+              <div id="eval-total-bar" class="bg-amber-400 h-2.5 rounded-full transition-all duration-300" style="width: 0%;"></div>
+            </div>
+            <div class="mt-4 p-3 rounded-lg bg-white/10 border border-white/15">
+              <p class="text-[11px] uppercase tracking-wider text-slate-300">Medida Propuesta (Sección VII.B)</p>
+              <p id="eval-recommended-measure" class="text-sm font-bold text-amber-300 mt-0.5">Pendiente de registros</p>
+            </div>
+          </div>
+
+          <div class="card-surface p-5">
+            <h3 class="text-sm font-bold text-slate-900 mb-3">Criterios para Retorno o Continuidad (Sección VII.B)</h3>
+            <div id="criteria-table" class="space-y-2 text-xs">
+              <!-- Populated dynamically -->
+            </div>
+            <p class="text-[11px] text-slate-500 mt-3 leading-relaxed">
+              <strong>Disposición especial:</strong> La continuidad del personal en el Distrito Central y Sur no será automática ni indefinida; toda prórroga requiere duración definida, justificación técnica y evaluación posterior.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9 Official Responsibilities Checklist -->
+      <div class="card-surface p-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+          <div>
+            <h3 class="text-sm sm:text-base font-bold text-slate-900">Verificación de Responsabilidades del Mando (Sección VII.A)</h3>
+            <p class="text-xs text-slate-500">Marca cada responsabilidad cumplida y documentada durante tu gestión en Comisaría 14.</p>
+          </div>
+          <span id="resp-counter" class="text-xs font-bold px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200">0 de 9 cumplidas</span>
+        </div>
+        <div id="responsibilities-list" class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 5: INFORME FINAL CONSOLIDADO ==================== -->
+    <section id="view-informe" class="hidden space-y-5">
+      <!-- Report Action Bar -->
+      <div class="card-surface p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 no-print">
+        <div>
+          <h2 class="text-base font-bold text-slate-900">Informe Técnico Individual Consolidado</h2>
+          <p class="text-xs text-slate-500">Listo para imprimir o guardar como PDF al concluir el período de 37 días del Plan No. SGO/39-2026.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button id="btn-copy-report" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 text-xs font-semibold transition">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            Copiar Texto
+          </button>
+          <button id="btn-print-report" type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#0B1F3A] hover:bg-[#15315B] text-white text-xs font-semibold shadow-sm transition">
+            <i data-lucide="printer" class="w-4 h-4"></i>
+            Imprimir / Guardar PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- Editable Final Conclusions (no-print helper box) -->
+      <div class="card-surface p-5 grid grid-cols-1 md:grid-cols-2 gap-4 no-print">
+        <div>
+          <label for="rep-input-conclusiones" class="block text-xs font-bold text-slate-700 mb-1">Conclusiones y Valoración Final del Mando (aparece en el informe)</label>
+          <textarea id="rep-input-conclusiones" rows="3" placeholder="Redacta tus conclusiones operativas finales, logros destacados o factores críticos observados en el sector..." class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/25"></textarea>
+        </div>
+        <div>
+          <label for="rep-input-propuestas" class="block text-xs font-bold text-slate-700 mb-1">Propuestas de Prevención y Continuidad para Comisaría 14</label>
+          <textarea id="rep-input-propuestas" rows="3" placeholder="Indica recomendaciones técnicas sobre sectores de mayor riesgo, horarios críticos o despliegues preventivos..." class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/25"></textarea>
+        </div>
+      </div>
+
+      <!-- Printable Official Report Document -->
+      <article id="report-printable" class="card-surface p-6 sm:p-10 bg-white text-slate-900 space-y-6">
+        <!-- Official Document Header -->
+        <div class="border-b-2 border-[#0B1F3A] pb-4 text-center space-y-1">
+          <p class="text-xs font-bold uppercase tracking-widest text-slate-600">Ministerio de Gobernación · República de Guatemala</p>
+          <h3 class="text-base sm:text-lg font-extrabold uppercase tracking-wide text-[#0B1F3A]">Policía Nacional Civil — Subdirección General de Operaciones</h3>
+          <p class="text-xs font-semibold text-slate-700">Departamento de Planificación · División de Operaciones Conjuntas (Código DOC-SGO)</p>
+          <div class="pt-2">
+            <span class="inline-block px-3 py-1 rounded bg-[#0B1F3A] text-amber-300 text-xs font-bold uppercase tracking-wider">
+              Informe Técnico Individual de Evaluación de Resultados — Plan No. SGO/39-2026
+            </span>
+          </div>
+        </div>
+
+        <!-- Identification Table -->
+        <div class="page-break-inside-avoid">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#0B1F3A] mb-2">I. Datos de Identificación del Mando Reconcentrado</h4>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs border border-slate-300 border-collapse">
+              <tbody>
+                <tr>
+                  <td class="bg-slate-100 font-bold px-3 py-2 border border-slate-300 w-1/4">Grado y Nombre</td>
+                  <td id="rep-nombre" class="px-3 py-2 border border-slate-300 w-1/4 font-semibold">—</td>
+                  <td class="bg-slate-100 font-bold px-3 py-2 border border-slate-300 w-1/4">Plan Operativo</td>
+                  <td class="px-3 py-2 border border-slate-300 w-1/4">Plan No. SGO/39-2026 (Fortalecimiento Operativo Distrito Central y Sur)</td>
+                </tr>
+                <tr>
+                  <td class="bg-slate-100 font-bold px-3 py-2 border border-slate-300">Unidad de Origen</td>
+                  <td id="rep-origen" class="px-3 py-2 border border-slate-300">—</td>
+                  <td class="bg-slate-100 font-bold px-3 py-2 border border-slate-300">Comisaría Designada</td>
+                  <td id="rep-comisaria" class="px-3 py-2 border border-slate-300 font-semibold">—</td>
+                </tr>
+                <tr>
+                  <td class="bg-slate-100 font-bold px-3 py-2 border border-slate-300">Sector Asignado</td>
+                  <td id="rep-sector" class="px-3 py-2 border border-slate-300">—</td>
+                  <td class="bg-slate-100 font-bold px-3 py-2 border border-slate-300">Período Evaluado</td>
+                  <td class="px-3 py-2 border border-slate-300">25 nov 2026 (06:00) al 31 dic 2026 (23:59) — 37 días</td>
+                </tr>
+                <tr>
+                  <td class="bg-slate-100 font-bold px-3 py-2 border border-slate-300">Turno / Jornada</td>
+                  <td id="rep-turno" class="px-3 py-2 border border-slate-300">—</td>
+                  <td class="bg-slate-100 font-bold px-3 py-2 border border-slate-300">Fecha de Emisión</td>
+                  <td id="rep-fecha-emision" class="px-3 py-2 border border-slate-300">—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="page-break-inside-avoid">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#0B1F3A] mb-2">II. Resumen Ejecutivo de Gestión</h4>
+          <p id="rep-resumen-texto" class="text-xs sm:text-sm text-slate-700 leading-relaxed bg-slate-50 p-3.5 rounded-lg border border-slate-200">
+            —
+          </p>
+        </div>
+
+        <!-- Consolidated Metrics Table -->
+        <div class="page-break-inside-avoid">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#0B1F3A] mb-2">III. Consolidado Cuantitativo de Resultados Operativos</h4>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs border border-slate-300 border-collapse">
+              <thead>
+                <tr class="bg-[#0B1F3A] text-white">
+                  <th class="text-left px-3 py-2 border border-slate-300">Categoría / Indicador</th>
+                  <th class="text-center px-3 py-2 border border-slate-300 w-28">Cantidad</th>
+                  <th class="text-left px-3 py-2 border border-slate-300">Referencia del Plan</th>
+                </tr>
+              </thead>
+              <tbody id="rep-metrics-tbody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Phase Breakdown -->
+        <div class="page-break-inside-avoid">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#0B1F3A] mb-2">IV. Desglose por Fases de Ejecución (Sección VI.B)</h4>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs border border-slate-300 border-collapse">
+              <thead>
+                <tr class="bg-slate-100 text-slate-800">
+                  <th class="text-left px-3 py-2 border border-slate-300">Fase</th>
+                  <th class="text-left px-3 py-2 border border-slate-300">Período</th>
+                  <th class="text-center px-3 py-2 border border-slate-300">Registros</th>
+                  <th class="text-center px-3 py-2 border border-slate-300">Hechos Positivos</th>
+                  <th class="text-center px-3 py-2 border border-slate-300">Supervisiones</th>
+                  <th class="text-center px-3 py-2 border border-slate-300">Incidencia</th>
+                </tr>
+              </thead>
+              <tbody id="rep-phases-tbody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Evaluation Matrix Table -->
+        <div class="page-break-inside-avoid">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#0B1F3A] mb-2">V. Matriz de Ponderación y Dictamen Técnico (Sección VII.A y VII.B)</h4>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs border border-slate-300 border-collapse">
+              <thead>
+                <tr class="bg-slate-100 text-slate-800">
+                  <th class="text-left px-3 py-2 border border-slate-300">Indicador</th>
+                  <th class="text-center px-3 py-2 border border-slate-300 w-24">Ponderación</th>
+                  <th class="text-center px-3 py-2 border border-slate-300 w-28">Cumplimiento</th>
+                  <th class="text-center px-3 py-2 border border-slate-300 w-28">Puntos</th>
+                </tr>
+              </thead>
+              <tbody id="rep-eval-tbody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-3 p-3 rounded-lg bg-amber-50 border border-amber-300 text-xs">
+            <strong>Recomendación según criterios de Sección VII.B:</strong>
+            <span id="rep-dictamen-final" class="font-bold text-slate-900 ml-1">—</span>
+          </div>
+        </div>
+
+        <!-- Novedades & Corrective Actions -->
+        <div class="page-break-inside-avoid">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#0B1F3A] mb-2">VI. Novedades Relevantes y Medidas Correctivas Documentadas</h4>
+          <div id="rep-novedades-list" class="space-y-1.5 text-xs text-slate-700">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Conclusions & Proposals -->
+        <div class="page-break-inside-avoid grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-3.5 rounded-lg border border-slate-200 bg-slate-50">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-[#0B1F3A] mb-1.5">VII. Conclusiones del Mando</h4>
+            <p id="rep-conclusiones-text" class="text-xs text-slate-700 whitespace-pre-line">—</p>
+          </div>
+          <div class="p-3.5 rounded-lg border border-slate-200 bg-slate-50">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-[#0B1F3A] mb-1.5">VIII. Propuestas de Prevención y Respuesta</h4>
+            <p id="rep-propuestas-text" class="text-xs text-slate-700 whitespace-pre-line">—</p>
+          </div>
+        </div>
+
+        <!-- Signatures -->
+        <div class="page-break-inside-avoid pt-10 grid grid-cols-1 sm:grid-cols-2 gap-10 text-center text-xs">
+          <div>
+            <div class="border-t border-slate-400 w-64 mx-auto pt-2">
+              <p id="rep-firma-nombre" class="font-bold text-slate-900">OFICIAL TERCERO VANESSA RIVAS ALVAREZ</p>
+              <p id="rep-firma-origen" class="text-slate-600">Mando Reconcentrado — SGO DISETUR</p>
+              <p class="text-slate-500">Apoyo Operativo Comisaría 14</p>
+            </div>
+          </div>
+          <div>
+            <div class="border-t border-slate-400 w-64 mx-auto pt-2">
+              <p class="font-bold text-slate-900">Vo. Bo. Jefe de Comisaría / Distrito</p>
+              <p id="rep-firma-jefe" class="text-slate-600">Jefatura de Comisaría 14 · Distrito Central</p>
+              <p class="text-slate-500">Policía Nacional Civil</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-3 px-4 text-center text-xs text-slate-500 no-print">
+    Bitácora Operativa Plan No. SGO/39-2026 · Tus registros se guardan automáticamente en este navegador. Usa <strong>Respaldo JSON</strong> periódicamente para conservar una copia de seguridad.
+  </footer>
+
+  <!-- MODAL: EDITAR FICHA DEL MANDO -->
+  <div id="modal-profile" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 p-4 no-print" role="dialog" aria-modal="true" aria-labelledby="modal-profile-title">
+    <div class="bg-white rounded-2xl max-w-lg w-full shadow-xl overflow-hidden">
+      <div class="bg-[#0B1F3A] text-white px-5 py-4 flex items-center justify-between">
+        <h3 id="modal-profile-title" class="text-sm font-bold">Ficha del Mando Reconcentrado</h3>
+        <button id="btn-close-profile" type="button" class="text-slate-300 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <form id="profile-form" class="p-5 space-y-3.5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="p-grado" class="block text-xs font-semibold text-slate-700 mb-1">Grado</label>
+            <input id="p-grado" type="text" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+          </div>
+          <div>
+            <label for="p-comisaria" class="block text-xs font-semibold text-slate-700 mb-1">Comisaría Designada</label>
+            <input id="p-comisaria" type="text" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+          </div>
+        </div>
+        <div>
+          <label for="p-nombre" class="block text-xs font-semibold text-slate-700 mb-1">Nombres y Apellidos</label>
+          <input id="p-nombre" type="text" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label for="p-origen" class="block text-xs font-semibold text-slate-700 mb-1">Destino Actual (Unidad de Origen)</label>
+          <input id="p-origen" type="text" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="p-sector" class="block text-xs font-semibold text-slate-700 mb-1">Sector Asignado (Comisaría 14)</label>
+            <input id="p-sector" type="text" placeholder="Ej. Subestación 14-11 / Zona 7" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+          </div>
+          <div>
+            <label for="p-turno" class="block text-xs font-semibold text-slate-700 mb-1">Turno / Jornada Habitual</label>
+            <input id="p-turno" type="text" placeholder="Ej. Diurno 06:00–18:00" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+          </div>
+        </div>
+        <div>
+          <label for="p-jefe" class="block text-xs font-semibold text-slate-700 mb-1">Jefe de Comisaría / Distrito (para firma Vo. Bo.)</label>
+          <input id="p-jefe" type="text" placeholder="Ej. Jefatura de Comisaría 14 · Distrito Central" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+        </div>
+        <div class="flex justify-end gap-2 pt-3 border-t border-slate-200">
+          <button id="btn-cancel-profile" type="button" class="px-4 py-2 rounded-lg border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-50">Cancelar</button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-[#0B1F3A] hover:bg-[#15315B] text-white text-xs font-semibold">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: CONFIRMACIÓN EN PÁGINA -->
+  <div id="modal-confirm" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 p-4 no-print" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-xl p-5 space-y-4">
+      <div class="flex items-start gap-3">
+        <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
+          <i data-lucide="alert-circle" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 id="confirm-title" class="text-sm font-bold text-slate-900">Confirmar acción</h3>
+          <p id="confirm-message" class="text-xs text-slate-600 mt-1">¿Deseas continuar?</p>
+        </div>
+      </div>
+      <div class="flex justify-end gap-2">
+        <button id="btn-confirm-cancel" type="button" class="px-4 py-2 rounded-lg border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-50">Cancelar</button>
+        <button id="btn-confirm-ok" type="button" class="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 no-print" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const STORAGE_KEY = 'pnc_sgo_39_2026_vanessa_v1';
+      const PLAN_START = '2026-11-25';
+      const PLAN_END = '2026-12-31';
+      const PLAN_DAYS = 37;
+
+      const PHASES = [
+        { id: 'Fase I', name: 'I. Organización', period: 'Previo al despliegue', desc: 'Selección de mandos, análisis de sectores, definición de indicadores y asignación.' },
+        { id: 'Fase II', name: 'II. Reconcentración', period: 'Días 1 al 3 (25–27 nov)', desc: 'Presentación del personal, inducción y despliegue territorial.' },
+        { id: 'Fase III', name: 'III. Supervisión operativa', period: 'Días 4 al 26 (28 nov–20 dic)', desc: 'Supervisión de servicios, controles operativos y evaluación inicial.' },
+        { id: 'Fase IV', name: 'IV. Fortalecimiento', period: 'Días 27 al 30 (21–24 dic)', desc: 'Corrección de deficiencias, seguimiento y evaluación comparativa.' },
+        { id: 'Fase V', name: 'V. Evaluación final', period: 'Día 31 al 37 (25–31 dic)', desc: 'Consolidación de resultados, dictamen técnico y recomendaciones.' }
+      ];
+
+      const RESPONSIBILITIES = [
+        '1. Registrar hechos y acciones positivas de las actividades operativas estratégicas.',
+        '2. Ejercer supervisión permanente de los servicios policiales en el sector asignado según turnos y jornadas.',
+        '3. Verificar presencia, disponibilidad, disciplina y cumplimiento de consignas del personal policial.',
+        '4. Coordinar ejecución de patrullajes preventivos y operativos focalizados según análisis de incidencia criminal.',
+        '5. Identificar sectores de mayor riesgo y proponer medidas de prevención y respuesta policial.',
+        '6. Mantener comunicación y coordinación permanente con la estructura de mando del Distrito Central y Sur.',
+        '7. Documentar actividades de supervisión, novedades identificadas, medidas correctivas y resultados obtenidos.',
+        '8. Elaborar informes periódicos de desempeño y evolución de la incidencia criminal en el sector asignado.',
+        '9. Garantizar actuaciones policiales con apego a la legalidad, derechos humanos y protocolos institucionales.'
+      ];
+
+      const SUBTYPES = {
+        positivos: [
+          'Operativo focalizado / Puesto de registro',
+          'Captura / Aprehensión flagrante u orden judicial',
+          'Incautación de arma de fuego / ilícitos',
+          'Recuperación de vehículo o motocicleta',
+          'Identificación de personas y solicitud de solvencias',
+          'Patrullaje preventivo disuasivo con resultados',
+          'Acción de prevención y apoyo ciudadano'
+        ],
+        supervision: [
+          'Supervisión de patrullajes preventivos y puestos fijos',
+          'Verificación de presencia, disciplina y consignas del personal',
+          'Reporte de ubicación y novedades a CECOIN / Águila Séptimo (110)',
+          'Coordinación operativa con Jefatura de Comisaría 14 / Distrito',
+          'Identificación de sector de riesgo y aplicación de medida correctiva',
+          'Presentación, inducción y despliegue territorial'
+        ],
+        incidencia: [
+          'Hecho contra la vida (homicidio / lesiones)',
+          'Hecho contra el patrimonio (robo / hurto / extorsión)',
+          'Incidente delictivo atendido en flagrancia',
+          'Reporte comparativo de incidencia del sector (CECOIN)'
+        ]
+      };
+
+      const CRITERIA_VII_B = [
+        {
+          id: 'satisfactorio',
+          min: 80,
+          condicion: 'Cumplimiento satisfactorio de los objetivos e indicadores',
+          medida: 'Recomendar retorno a la comisaría / unidad de origen (DISETUR)',
+          badgeClass: 'bg-emerald-100 text-emerald-800 border-emerald-300'
+        },
+        {
+          id: 'parcial',
+          min: 60,
+          condicion: 'Cumplimiento parcial con oportunidades de mejora',
+          medida: 'Establecer medidas correctivas y valorar una prórroga temporal',
+          badgeClass: 'bg-amber-100 text-amber-900 border-amber-300'
+        },
+        {
+          id: 'insuficiente',
+          min: 0,
+          condicion: 'Resultados insuficientes debidamente documentados',
+          medida: 'Recomendar continuidad temporal, acompañamiento y nueva evaluación',
+          badgeClass: 'bg-rose-100 text-rose-800 border-rose-300'
+        },
+        {
+          id: 'disciplinario',
+          min: -1,
+          condicion: 'Deficiencias graves o posibles incumplimientos disciplinarios',
+          medida: 'Remitir a la instancia competente para las actuaciones correspondientes',
+          badgeClass: 'bg-slate-100 text-slate-700 border-slate-300'
+        }
+      ];
+
+      function defaultState() {
+        return {
+          profile: {
+            grado: 'OFICIAL TERCERO',
+            nombre: 'VANESSA RIVAS ALVAREZ',
+            origen: 'SGO DIVISIÓN DE SEGURIDAD TURÍSTICA (DISETUR)',
+            comisaria: 'Comisaría 14',
+            sector: '',
+            turno: 'Según rol de Comisaría 14',
+            jefeInmediato: 'Jefatura de Comisaría 14 · Distrito Central'
+          },
+          activities: [],
+          evaluation: {
+            lineaBaseIncidencia: 20,
+            metaHechosPositivos: 30,
+            metaSupervisiones: 37,
+            ajusteManualIncidencia: null,
+            responsabilidadesCumplidas: [false, false, false, false, false, false, false, false, false],
+            conclusionesFinales: '',
+            propuestasPrevencion: ''
+          }
+        };
+      }
+
+      let state = loadState();
+      let activeTab = 'resumen';
+      let timelineChart = null;
+      let breakdownChart = null;
+      let pendingConfirmCallback = null;
+
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return defaultState();
+          const parsed = JSON.parse(raw);
+          const def = defaultState();
+          return {
+            profile: Object.assign({}, def.profile, parsed.profile || {}),
+            activities: Array.isArray(parsed.activities) ? parsed.activities : [],
+            evaluation: Object.assign({}, def.evaluation, parsed.evaluation || {}, {
+              responsabilidadesCumplidas: Array.isArray(parsed.evaluation && parsed.evaluation.responsabilidadesCumplidas) && parsed.evaluation.responsabilidadesCumplidas.length === 9
+                ? parsed.evaluation.responsabilidadesCumplidas
+                : def.evaluation.responsabilidadesCumplidas
+            })
+          };
+        } catch (err) {
+          return defaultState();
+        }
+      }
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (err) {
+          // Ignore storage quota errors in sandbox
+        }
+      }
+
+      function escapeHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function getPhaseForDate(dateStr) {
+        if (!dateStr) return 'Fase II';
+        if (dateStr < PLAN_START) return 'Fase I';
+        const start = new Date(PLAN_START + 'T00:00:00');
+        const current = new Date(dateStr + 'T00:00:00');
+        const diffDays = Math.floor((current - start) / (1000 * 60 * 60 * 24)) + 1;
+        if (diffDays <= 3) return 'Fase II';
+        if (diffDays <= 26) return 'Fase III';
+        if (diffDays <= 30) return 'Fase IV';
+        return 'Fase V';
+      }
+
+      function getCurrentPlanDay() {
+        const now = new Date();
+        const start = new Date(PLAN_START + 'T00:00:00');
+        const diff = Math.floor((now - start) / (1000 * 60 * 60 * 24)) + 1;
+        if (diff < 1) return 1;
+        if (diff > PLAN_DAYS) return PLAN_DAYS;
+        return diff;
+      }
+
+      function getTodayISO() {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        const iso = `${y}-${m}-${d}`;
+        if (iso < PLAN_START) return PLAN_START;
+        if (iso > PLAN_END) return PLAN_END;
+        return iso;
+      }
+
+      function showToast(message, type) {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+        const colors = type === 'error'
+          ? 'bg-rose-700 text-white'
+          : type === 'warning'
+            ? 'bg-amber-600 text-white'
+            : 'bg-[#0B1F3A] text-white';
+        const toast = document.createElement('div');
+        toast.className = `toast-enter px-4 py-2.5 rounded-xl shadow-lg text-xs sm:text-sm font-medium flex items-center gap-2 ${colors}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transition = 'opacity 0.25s ease';
+          setTimeout(() => toast.remove(), 250);
+        }, 3000);
+      }
+
+      function openConfirm(title, message, onConfirm) {
+        document.getElementById('confirm-title').textContent = title;
+        document.getElementById('confirm-message').textContent = message;
+        pendingConfirmCallback = onConfirm;
+        const modal = document.getElementById('modal-confirm');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+
+      function closeConfirm() {
+        const modal = document.getElementById('modal-confirm');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        pendingConfirmCallback = null;
+      }
+
+      // Compute aggregates and official 60/30/10 score
+      function computeStats() {
+        const acts = state.activities;
+        const uniqueDates = new Set(acts.map(a => a.fecha).filter(Boolean));
+        let positivosCount = 0;
+        let supervisionCount = 0;
+        let incidenciaRecords = 0;
+
+        let capturas = 0;
+        let armas = 0;
+        let vehiculos = 0;
+        let identificaciones = 0;
+        let operativos = 0;
+        let patrullajesSupervisados = 0;
+        let agentesVerificados = 0;
+        let hechosVida = 0;
+        let hechosPatrimonio = 0;
+        let otrosIncidentes = 0;
+
+        acts.forEach(a => {
+          const m = a.metricas || {};
+          if (a.pilar === 'positivos') {
+            positivosCount += 1;
+            capturas += Number(m.capturas || 0);
+            armas += Number(m.armas || 0);
+            vehiculos += Number(m.vehiculos || 0);
+            identificaciones += Number(m.identificaciones || 0);
+            operativos += Number(m.operativos || 0);
+          } else if (a.pilar === 'supervision') {
+            supervisionCount += 1;
+            patrullajesSupervisados += Number(m.patrullajesSupervisados || 0);
+            agentesVerificados += Number(m.agentesVerificados || 0);
+            operativos += Number(m.operativos || 0);
+          } else if (a.pilar === 'incidencia') {
+            incidenciaRecords += 1;
+            hechosVida += Number(m.hechosVida || 0);
+            hechosPatrimonio += Number(m.hechosPatrimonio || 0);
+            otrosIncidentes += Number(m.otrosIncidentes || 0);
+          }
+        });
+
+        const totalIncidenciaHechos = hechosVida + hechosPatrimonio + otrosIncidentes;
+        const totalAccionesPositivas = Math.max(positivosCount, capturas + armas + vehiculos + operativos);
+
+        const ev = state.evaluation;
+        const baseline = Math.max(1, Number(ev.lineaBaseIncidencia || 20));
+        const metaPos = Math.max(1, Number(ev.metaHechosPositivos || 30));
+        const metaSup = Math.max(1, Number(ev.metaSupervisiones || 37));
+
+        let pctIncidencia = 0;
+        if (ev.ajusteManualIncidencia !== null && ev.ajusteManualIncidencia !== '' && !isNaN(Number(ev.ajusteManualIncidencia))) {
+          pctIncidencia = Math.max(0, Math.min(100, Number(ev.ajusteManualIncidencia)));
+        } else if (acts.length > 0) {
+          pctIncidencia = Math.max(0, Math.min(100, ((baseline - totalIncidenciaHechos) / baseline) * 100));
+        }
+
+        const pctPositivos = acts.length > 0 ? Math.min(100, (totalAccionesPositivas / metaPos) * 100) : 0;
+
+        const respCount = (ev.responsabilidadesCumplidas || []).filter(Boolean).length;
+        const pctResp = (respCount / 9) * 100;
+        const pctSupMeta = Math.min(100, (supervisionCount / metaSup) * 100);
+        const pctSupervision = (acts.length > 0 || respCount > 0) ? (pctSupMeta * 0.6 + pctResp * 0.4) : 0;
+
+        const ptsIncidencia = (pctIncidencia / 100) * 60;
+        const ptsPositivos = (pctPositivos / 100) * 30;
+        const ptsSupervision = (pctSupervision / 100) * 10;
+        const totalScore = ptsIncidencia + ptsPositivos + ptsSupervision;
+
+        let activeCriteria = null;
+        if (acts.length > 0 || respCount > 0 || ev.ajusteManualIncidencia !== null) {
+          if (totalScore >= 80) activeCriteria = CRITERIA_VII_B[0];
+          else if (totalScore >= 60) activeCriteria = CRITERIA_VII_B[1];
+          else activeCriteria = CRITERIA_VII_B[2];
+        }
+
+        return {
+          daysLogged: uniqueDates.size,
+          totalRecords: acts.length,
+          positivosCount,
+          supervisionCount,
+          incidenciaRecords,
+          capturas,
+          armas,
+          vehiculos,
+          identificaciones,
+          operativos,
+          patrullajesSupervisados,
+          agentesVerificados,
+          hechosVida,
+          hechosPatrimonio,
+          otrosIncidentes,
+          totalIncidenciaHechos,
+          totalAccionesPositivas,
+          respCount,
+          pctIncidencia,
+          pctPositivos,
+          pctSupervision,
+          ptsIncidencia,
+          ptsPositivos,
+          ptsSupervision,
+          totalScore,
+          activeCriteria
+        };
+      }
+
+      // Render Header
+      function renderHeader(stats) {
+        const p = state.profile;
+        document.getElementById('hdr-grado').textContent = p.grado || 'MANDO';
+        document.getElementById('hdr-nombre').textContent = p.nombre || 'Sin nombre';
+        document.getElementById('hdr-comisaria').textContent = p.comisaria || 'Comisaría 14';
+        const shortOrigen = p.origen && p.origen.includes('DISETUR') ? 'SGO DISETUR' : (p.origen && p.origen.includes('SGTIC') ? 'DGA SGTIC' : (p.origen || 'Sin origen'));
+        document.getElementById('hdr-origen').textContent = `Origen: ${shortOrigen} · Sector: ${p.sector || 'Sin asignar'}`;
+
+        const currentDay = getCurrentPlanDay();
+        const phaseId = getPhaseForDate(getTodayISO());
+        const phaseObj = PHASES.find(ph => ph.id === phaseId) || PHASES[1];
+        document.getElementById('hdr-day-indicator').textContent = `Día ${currentDay} de ${PLAN_DAYS}`;
+        document.getElementById('hdr-phase-indicator').textContent = `Fase actual: ${phaseObj.name}`;
+        document.getElementById('hdr-records-count').textContent = `${stats.totalRecords} ${stats.totalRecords === 1 ? 'actividad registrada' : 'actividades registradas'}`;
+        document.getElementById('hdr-progress-bar').style.width = `${Math.round((currentDay / PLAN_DAYS) * 100)}%`;
+      }
+
+      // Render Dashboard
+      function renderResumen(stats) {
+        const emptyBanner = document.getElementById('empty-banner');
+        if (stats.totalRecords === 0) {
+          emptyBanner.classList.remove('hidden');
+        } else {
+          emptyBanner.classList.add('hidden');
+        }
+
+        document.getElementById('kpi-dias').innerHTML = `${stats.daysLogged} <span class="text-sm font-normal text-slate-400">/ ${PLAN_DAYS}</span>`;
+        document.getElementById('kpi-dias-sub').textContent = `${Math.round((stats.daysLogged / PLAN_DAYS) * 100)}% de cobertura del plan`;
+
+        document.getElementById('kpi-positivos').textContent = String(stats.totalAccionesPositivas);
+        document.getElementById('kpi-positivos-sub').textContent = `${stats.capturas} capturas · ${stats.operativos} operativos`;
+
+        document.getElementById('kpi-supervisiones').textContent = String(stats.supervisionCount);
+        document.getElementById('kpi-supervisiones-sub').textContent = `${stats.patrullajesSupervisados} patrullajes · ${stats.agentesVerificados} agentes verif.`;
+
+        document.getElementById('kpi-incidencia').textContent = String(stats.totalIncidenciaHechos);
+        document.getElementById('kpi-incidencia-sub').textContent = `${stats.hechosVida} vida · ${stats.hechosPatrimonio} patrimonio`;
+
+        document.getElementById('kpi-puntaje').textContent = `${stats.totalScore.toFixed(1)}%`;
+        document.getElementById('kpi-dictamen').textContent = stats.activeCriteria
+          ? stats.activeCriteria.condicion
+          : 'Sin registros aún';
+
+        // Phases Grid
+        const phasesGrid = document.getElementById('phases-grid');
+        const currentPhaseId = getPhaseForDate(getTodayISO());
+        phasesGrid.innerHTML = PHASES.map(ph => {
+          const count = state.activities.filter(a => a.fase === ph.id).length;
+          const isCurrent = ph.id === currentPhaseId;
+          return `
+            <div class="p-3.5 rounded-xl border ${isCurrent ? 'border-amber-400 bg-amber-50/50' : 'border-slate-200 bg-slate-50/60'} flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-1">
+                  <span class="text-xs font-bold text-[#0B1F3A]">${escapeHtml(ph.name)}</span>
+                  ${isCurrent ? '<span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-400 text-slate-950">Actual</span>' : ''}
+                </div>
+                <p class="text-[11px] font-medium text-slate-500 mt-0.5">${escapeHtml(ph.period)}</p>
+                <p class="text-[11px] text-slate-600 mt-1.5 leading-snug">${escapeHtml(ph.desc)}</p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-200/80 flex items-center justify-between text-xs">
+                <span class="text-slate-500">Registros</span>
+                <span class="font-bold text-slate-900">${count}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        renderCharts(stats);
+      }
+
+      function renderCharts(stats) {
+        if (typeof Chart === 'undefined') return;
+
+        // Group activities by date
+        const byDate = {};
+        state.activities.forEach(a => {
+          const d = a.fecha || 'Sin fecha';
+          if (!byDate[d]) byDate[d] = { positivos: 0, supervision: 0, incidencia: 0 };
+          const m = a.metricas || {};
+          if (a.pilar === 'positivos') {
+            byDate[d].positivos += Math.max(1, Number(m.capturas || 0) + Number(m.armas || 0) + Number(m.vehiculos || 0) + Number(m.operativos || 0));
+          } else if (a.pilar === 'supervision') {
+            byDate[d].supervision += 1;
+          } else if (a.pilar === 'incidencia') {
+            byDate[d].incidencia += Math.max(1, Number(m.hechosVida || 0) + Number(m.hechosPatrimonio || 0) + Number(m.otrosIncidentes || 0));
+          }
+        });
+
+        const sortedDates = Object.keys(byDate).sort();
+        const labels = sortedDates.length > 0
+          ? sortedDates.map(d => d.slice(5))
+          : ['25 nov', '01 dic', '10 dic', '20 dic', '31 dic'];
+
+        const posSeries = sortedDates.length > 0 ? sortedDates.map(d => byDate[d].positivos) : [0, 0, 0, 0, 0];
+        const supSeries = sortedDates.length > 0 ? sortedDates.map(d => byDate[d].supervision) : [0, 0, 0, 0, 0];
+        const incSeries = sortedDates.length > 0 ? sortedDates.map(d => byDate[d].incidencia) : [0, 0, 0, 0, 0];
+
+        const ctx1 = document.getElementById('chart-timeline');
+        if (ctx1) {
+          if (timelineChart) timelineChart.destroy();
+          timelineChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+              labels,
+              datasets: [
+                { label: 'Hechos Positivos', data: posSeries, backgroundColor: '#059669', borderRadius: 4 },
+                { label: 'Supervisiones', data: supSeries, backgroundColor: '#4F46E5', borderRadius: 4 },
+                { label: 'Incidencia Criminal', data: incSeries, backgroundColor: '#E11D48', borderRadius: 4 }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+              },
+              scales: {
+                y: { beginAtZero: true, ticks: { precision: 0, font: { size: 11 } }, grid: { color: '#E2E8F0' } },
+                x: { ticks: { font: { size: 11 } }, grid: { display: false } }
+              }
+            }
+          });
+        }
+
+        const ctx2 = document.getElementById('chart-breakdown');
+        if (ctx2) {
+          if (breakdownChart) breakdownChart.destroy();
+          const bData = [
+            stats.capturas,
+            stats.operativos,
+            stats.patrullajesSupervisados,
+            stats.armas + stats.vehiculos,
+            stats.totalIncidenciaHechos
+          ];
+          const hasData = bData.some(v => v > 0);
+          breakdownChart = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+              labels: ['Capturas', 'Operativos', 'Patrullajes Superv.', 'Armas / Vehíc.', 'Incidencia Reg.'],
+              datasets: [{
+                data: hasData ? bData : [1],
+                backgroundColor: hasData
+                  ? ['#059669', '#0B1F3A', '#4F46E5', '#D97706', '#E11D48']
+                  : ['#E2E8F0'],
+                borderWidth: 2,
+                borderColor: '#FFFFFF'
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              cutout: '62%',
+              plugins: {
+                legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                tooltip: {
+                  enabled: hasData
+                }
+              }
+            }
+          });
+        }
+      }
+
+      // Render Bitácora List
+      function renderBitacora() {
+        const listEl = document.getElementById('bitacora-list');
+        const q = (document.getElementById('filter-search').value || '').trim().toLowerCase();
+        const fPilar = document.getElementById('filter-pilar').value;
+        const fFase = document.getElementById('filter-fase').value;
+
+        const filtered = state.activities
+          .filter(a => {
+            if (fPilar !== 'all' && a.pilar !== fPilar) return false;
+            if (fFase !== 'all' && a.fase !== fFase) return false;
+            if (q) {
+              const hay = `${a.subtipo} ${a.descripcion} ${a.sector} ${a.novedades} ${a.medidasCorrectivas} ${a.fecha}`.toLowerCase();
+              if (!hay.includes(q)) return false;
+            }
+            return true;
+          })
+          .sort((a, b) => (b.fecha + (b.hora || '')).localeCompare(a.fecha + (a.hora || '')));
+
+        if (filtered.length === 0) {
+          listEl.innerHTML = `
+            <div class="text-center py-10 px-4 border border-dashed border-slate-300 rounded-xl bg-slate-50/70">
+              <p class="text-sm font-semibold text-slate-700">No hay actividades que coincidan con los filtros actuales.</p>
+              <p class="text-xs text-slate-500 mt-1">Registra una actividad diaria en la pestaña "Registrar Actividad" o ajusta los filtros.</p>
+            </div>
+          `;
+          return;
+        }
+
+        listEl.innerHTML = filtered.map(a => {
+          const badge = a.pilar === 'positivos'
+            ? '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800">Hecho Positivo (30%)</span>'
+            : a.pilar === 'supervision'
+              ? '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-indigo-100 text-indigo-800">Supervisión (10%)</span>'
+              : '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-100 text-rose-800">Incidencia (60%)</span>';
+
+          const m = a.metricas || {};
+          const pills = [];
+          if (m.capturas > 0) pills.push(`${m.capturas} capt.`);
+          if (m.armas > 0) pills.push(`${m.armas} armas`);
+          if (m.vehiculos > 0) pills.push(`${m.vehiculos} vehíc.`);
+          if (m.identificaciones > 0) pills.push(`${m.identificaciones} identif.`);
+          if (m.operativos > 0) pills.push(`${m.operativos} operat.`);
+          if (m.patrullajesSupervisados > 0) pills.push(`${m.patrullajesSupervisados} patrullajes`);
+          if (m.agentesVerificados > 0) pills.push(`${m.agentesVerificados} agentes`);
+          if (m.hechosVida > 0) pills.push(`${m.hechosVida} vida`);
+          if (m.hechosPatrimonio > 0) pills.push(`${m.hechosPatrimonio} patrimonio`);
+          if (m.otrosIncidentes > 0) pills.push(`${m.otrosIncidentes} otros inc.`);
+
+          return `
+            <div class="p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-300 transition">
+              <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+                <div class="space-y-1">
+                  <div class="flex flex-wrap items-center gap-2">
+                    ${badge}
+                    <span class="text-xs font-bold text-slate-800">${escapeHtml(a.fecha)}${a.hora ? ' · ' + escapeHtml(a.hora) : ''}</span>
+                    <span class="text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">${escapeHtml(a.fase)}</span>
+                    <span class="text-[11px] text-slate-500">${escapeHtml(a.turno)}</span>
+                  </div>
+                  <h3 class="text-sm font-bold text-slate-900">${escapeHtml(a.subtipo)}</h3>
+                  <p class="text-xs text-slate-500">
+                    Sector: <strong class="text-slate-700">${escapeHtml(a.sector || state.profile.sector || 'Comisaría 14')}</strong>
+                    · Canal: <strong class="text-slate-700">${escapeHtml(a.canalReporte || 'CECOIN')}</strong>
+                  </p>
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
+                  <button type="button" data-action="edit" data-id="${escapeHtml(a.id)}" class="px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-xs font-semibold text-slate-700">Editar</button>
+                  <button type="button" data-action="duplicate" data-id="${escapeHtml(a.id)}" class="px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-xs font-semibold text-slate-700">Duplicar</button>
+                  <button type="button" data-action="delete" data-id="${escapeHtml(a.id)}" class="px-2.5 py-1.5 rounded-lg border border-rose-200 hover:bg-rose-50 text-xs font-semibold text-rose-700">Eliminar</button>
+                </div>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-700 mt-2.5 leading-relaxed">${escapeHtml(a.descripcion)}</p>
+              ${pills.length > 0 ? `<div class="flex flex-wrap gap-1.5 mt-2.5">${pills.map(p => `<span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700">${escapeHtml(p)}</span>`).join('')}</div>` : ''}
+              ${(a.novedades || a.medidasCorrectivas) ? `
+                <div class="mt-3 pt-2.5 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                  ${a.novedades ? `<div class="bg-amber-50/70 rounded-lg p-2"><span class="font-bold text-amber-900">Novedad:</span> <span class="text-slate-700">${escapeHtml(a.novedades)}</span></div>` : ''}
+                  ${a.medidasCorrectivas ? `<div class="bg-blue-50/70 rounded-lg p-2"><span class="font-bold text-blue-900">Medida correctiva:</span> <span class="text-slate-700">${escapeHtml(a.medidasCorrectivas)}</span></div>` : ''}
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Render Evaluation Matrix
+      function renderEvaluacion(stats) {
+        const ev = state.evaluation;
+        document.getElementById('eval-baseline-inc').value = ev.lineaBaseIncidencia;
+        document.getElementById('eval-meta-pos').value = ev.metaHechosPositivos;
+        document.getElementById('eval-meta-sup').value = ev.metaSupervisiones;
+        document.getElementById('eval-manual-inc').value = ev.ajusteManualIncidencia !== null ? ev.ajusteManualIncidencia : '';
+
+        document.getElementById('eval-score-incidencia').textContent = `${stats.ptsIncidencia.toFixed(1)} / 60`;
+        document.getElementById('eval-score-positivos').textContent = `${stats.ptsPositivos.toFixed(1)} / 30`;
+        document.getElementById('eval-score-supervision').textContent = `${stats.ptsSupervision.toFixed(1)} / 10`;
+
+        document.getElementById('eval-inc-detail').textContent = ev.ajusteManualIncidencia !== null
+          ? `Usando porcentaje oficial ingresado manualmente (${stats.pctIncidencia.toFixed(1)}%). Incidencia en bitácora: ${stats.totalIncidenciaHechos} hechos.`
+          : `Incidencia registrada: ${stats.totalIncidenciaHechos} hechos frente a línea base de ${ev.lineaBaseIncidencia} (${stats.pctIncidencia.toFixed(1)}% de reducción estimada).`;
+        document.getElementById('eval-pos-detail').textContent = `Acumulado en bitácora: ${stats.totalAccionesPositivas} acciones positivas (${stats.pctPositivos.toFixed(1)}% de la meta).`;
+        document.getElementById('eval-sup-detail').textContent = `Supervisiones registradas: ${stats.supervisionCount}/${ev.metaSupervisiones} · Responsabilidades marcadas: ${stats.respCount}/9.`;
+
+        document.getElementById('eval-total-score').textContent = `${stats.totalScore.toFixed(1)}%`;
+        document.getElementById('eval-total-bar').style.width = `${Math.min(100, stats.totalScore).toFixed(1)}%`;
+        document.getElementById('eval-recommended-measure').textContent = stats.activeCriteria
+          ? stats.activeCriteria.medida
+          : 'Registra actividades o marca responsabilidades para calcular';
+
+        // Criteria Table VII.B
+        const criteriaEl = document.getElementById('criteria-table');
+        criteriaEl.innerHTML = CRITERIA_VII_B.map(c => {
+          const isMatch = stats.activeCriteria && stats.activeCriteria.id === c.id;
+          return `
+            <div class="p-2.5 rounded-lg border ${isMatch ? c.badgeClass + ' ring-2 ring-offset-1 ring-amber-400' : 'border-slate-200 bg-slate-50/70'}">
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-bold text-slate-900">${escapeHtml(c.condicion)}</span>
+                ${isMatch ? '<span class="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-[#0B1F3A] text-amber-300 shrink-0">Actual</span>' : ''}
+              </div>
+              <p class="text-slate-700 mt-0.5">${escapeHtml(c.medida)}</p>
+            </div>
+          `;
+        }).join('');
+
+        // 9 Responsibilities Checklist
+        document.getElementById('resp-counter').textContent = `${stats.respCount} de 9 cumplidas`;
+        const respList = document.getElementById('responsibilities-list');
+        respList.innerHTML = RESPONSIBILITIES.map((text, idx) => {
+          const checked = Boolean(ev.responsabilidadesCumplidas[idx]);
+          return `
+            <label class="flex items-start gap-2.5 p-3 rounded-xl border ${checked ? 'border-indigo-300 bg-indigo-50/60' : 'border-slate-200 bg-white'} cursor-pointer hover:border-indigo-300 transition">
+              <input type="checkbox" data-resp-idx="${idx}" ${checked ? 'checked' : ''} class="mt-0.5 w-4 h-4 rounded border-slate-300 text-indigo-700 focus:ring-indigo-600" />
+              <span class="text-xs text-slate-800 leading-snug">${escapeHtml(text)}</span>
+            </label>
+          `;
+        }).join('');
+      }
+
+      // Render Consolidated Final Report
+      function renderInforme(stats) {
+        const p = state.profile;
+        const ev = state.evaluation;
+
+        document.getElementById('rep-input-conclusiones').value = ev.conclusionesFinales || '';
+        document.getElementById('rep-input-propuestas').value = ev.propuestasPrevencion || '';
+
+        document.getElementById('rep-nombre').textContent = `${p.grado} ${p.nombre}`;
+        document.getElementById('rep-origen').textContent = p.origen;
+        document.getElementById('rep-comisaria').textContent = p.comisaria;
+        document.getElementById('rep-sector').textContent = p.sector || 'Sector asignado en Comisaría 14';
+        document.getElementById('rep-turno').textContent = p.turno || 'Según rol de servicio';
+        document.getElementById('rep-fecha-emision').textContent = new Date().toLocaleDateString('es-GT', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
+
+        document.getElementById('rep-resumen-texto').textContent =
+          `En cumplimiento al Plan de Fortalecimiento Operativo No. SGO/39-2026 (Distrito Central y Sur), durante el período de reconcentración temporal en ${p.comisaria} (${p.sector || 'sector asignado'}), se documentaron ${stats.totalRecords} actividades operativas a lo largo de ${stats.daysLogged} días de gestión. Se consolidaron ${stats.totalAccionesPositivas} acciones positivas (${stats.capturas} capturas, ${stats.operativos} operativos focalizados, ${stats.armas} armas incautadas, ${stats.vehiculos} vehículos recuperados y ${stats.identificaciones} personas identificadas), ${stats.supervisionCount} jornadas de supervisión efectiva (${stats.patrullajesSupervisados} patrullajes supervisados y ${stats.agentesVerificados} agentes verificados) y el seguimiento a ${stats.totalIncidenciaHechos} hechos de incidencia criminal en el sector. La puntuación ponderada estimada asciende a ${stats.totalScore.toFixed(1)}%.`;
+
+        const metricRows = [
+          ['Capturas / Aprehensiones', stats.capturas, 'Sección VII.A — Incremento de hechos positivos (30%)'],
+          ['Operativos focalizados y puestos de registro', stats.operativos, 'Sección VII.A.4 — Operativos sustentados en incidencia'],
+          ['Armas de fuego / ilícitos incautados', stats.armas, 'Sección VII.A.1 — Acciones operativas estratégicas'],
+          ['Vehículos / motocicletas recuperados', stats.vehiculos, 'Sección VII.A.1 — Protección del patrimonio'],
+          ['Personas identificadas (solvencias)', stats.identificaciones, 'Sección VII.A.4 — Prevención y control territorial'],
+          ['Patrullajes y puestos supervisados', stats.patrullajesSupervisados, 'Sección VII.A.2 — Supervisión permanente de servicios (10%)'],
+          ['Agentes verificados en presencia y consignas', stats.agentesVerificados, 'Sección VII.A.3 — Disciplina y cumplimiento de consignas'],
+          ['Hechos contra la vida registrados en sector', stats.hechosVida, 'Sección VII.A — Monitoreo de incidencia criminal (60%)'],
+          ['Hechos contra el patrimonio registrados en sector', stats.hechosPatrimonio, 'Sección VII.A — Monitoreo de incidencia criminal (60%)'],
+          ['Otros incidentes delictivos documentados', stats.otrosIncidentes, 'Sección VII.A — Evolución de incidencia criminal']
+        ];
+
+        document.getElementById('rep-metrics-tbody').innerHTML = metricRows.map(r => `
+          <tr>
+            <td class="px-3 py-1.5 border border-slate-300 font-medium">${escapeHtml(r[0])}</td>
+            <td class="px-3 py-1.5 border border-slate-300 text-center font-bold">${r[1]}</td>
+            <td class="px-3 py-1.5 border border-slate-300 text-slate-600">${escapeHtml(r[2])}</td>
+          </tr>
+        `).join('');
+
+        document.getElementById('rep-phases-tbody').innerHTML = PHASES.map(ph => {
+          const phActs = state.activities.filter(a => a.fase === ph.id);
+          const pos = phActs.filter(a => a.pilar === 'positivos').length;
+          const sup = phActs.filter(a => a.pilar === 'supervision').length;
+          const inc = phActs.filter(a => a.pilar === 'incidencia').length;
+          return `
+            <tr>
+              <td class="px-3 py-1.5 border border-slate-300 font-semibold">${escapeHtml(ph.name)}</td>
+              <td class="px-3 py-1.5 border border-slate-300 text-slate-600">${escapeHtml(ph.period)}</td>
+              <td class="px-3 py-1.5 border border-slate-300 text-center font-bold">${phActs.length}</td>
+              <td class="px-3 py-1.5 border border-slate-300 text-center">${pos}</td>
+              <td class="px-3 py-1.5 border border-slate-300 text-center">${sup}</td>
+              <td class="px-3 py-1.5 border border-slate-300 text-center">${inc}</td>
+            </tr>
+          `;
+        }).join('');
+
+        document.getElementById('rep-eval-tbody').innerHTML = `
+          <tr>
+            <td class="px-3 py-1.5 border border-slate-300">Reducción de la incidencia criminal en el sector asignado</td>
+            <td class="px-3 py-1.5 border border-slate-300 text-center">60%</td>
+            <td class="px-3 py-1.5 border border-slate-300 text-center">${stats.pctIncidencia.toFixed(1)}%</td>
+            <td class="px-3 py-1.5 border border-slate-300 text-center font-bold">${stats.ptsIncidencia.toFixed(1)}</td>
+          </tr>
+          <tr>
+            <td class="px-3 py-1.5 border border-slate-300">Incremento de hechos positivos</td>
+            <td class="px-3 py-1.5 border border-slate-300 text-center">30%</td>
+            <td class="px-3 py-1.5 border border-slate-300 text-center">${stats.pctPositivos.toFixed(1)}%</td>
+            <td class="px-3 py-1.5 border border-slate-300 text-center font-bold">${stats.ptsPositivos.toFixed(1)}</td>
+          </tr>
+          <tr>
+            <td class="px-3 py-1.5 border border-slate-300">Supervisión efectiva del personal y los servicios policiales</td>
+            <td class="px-3 py-1.5 border border-slate-300 text-center">10%</td>
+            <td class="px-3 py-1.5 border border-slate-300 text-center">${stats.pctSupervision.toFixed(1)}%</td>
+            <td class="px-3 py-1.5 border border-slate-300 text-center font-bold">${stats.ptsSupervision.toFixed(1)}</td>
+          </tr>
+          <tr class="bg-slate-100 font-bold">
+            <td class="px-3 py-2 border border-slate-300">TOTAL CONSOLIDADO</td>
+            <td class="px-3 py-2 border border-slate-300 text-center">100%</td>
+            <td class="px-3 py-2 border border-slate-300 text-center">${stats.totalScore.toFixed(1)}%</td>
+            <td class="px-3 py-2 border border-slate-300 text-center">${stats.totalScore.toFixed(1)}</td>
+          </tr>
+        `;
+
+        document.getElementById('rep-dictamen-final').textContent = stats.activeCriteria
+          ? `${stats.activeCriteria.condicion} → ${stats.activeCriteria.medida}.`
+          : 'Pendiente de registro de actividades para emitir dictamen.';
+
+        const novActs = state.activities.filter(a => (a.novedades && a.novedades.trim()) || (a.medidasCorrectivas && a.medidasCorrectivas.trim()));
+        const novEl = document.getElementById('rep-novedades-list');
+        if (novActs.length === 0) {
+          novEl.innerHTML = '<p class="text-slate-500 italic">No se registraron novedades o medidas correctivas adicionales en los registros actuales.</p>';
+        } else {
+          novEl.innerHTML = novActs.map(a => `
+            <div class="p-2.5 rounded border border-slate-200 bg-slate-50/70">
+              <span class="font-bold text-slate-900">${escapeHtml(a.fecha)} (${escapeHtml(a.fase)}):</span>
+              ${a.novedades ? ` <span><strong>Novedad:</strong> ${escapeHtml(a.novedades)}.</span>` : ''}
+              ${a.medidasCorrectivas ? ` <span><strong>Medida correctiva:</strong> ${escapeHtml(a.medidasCorrectivas)}.</span>` : ''}
+            </div>
+          `).join('');
+        }
+
+        document.getElementById('rep-conclusiones-text').textContent = ev.conclusionesFinales && ev.conclusionesFinales.trim()
+          ? ev.conclusionesFinales
+          : 'Pendiente de redacción por el mando reconcentrado en el cuadro superior antes de imprimir.';
+        document.getElementById('rep-propuestas-text').textContent = ev.propuestasPrevencion && ev.propuestasPrevencion.trim()
+          ? ev.propuestasPrevencion
+          : 'Pendiente de redacción de recomendaciones técnicas para la Jefatura de Comisaría 14.';
+
+        document.getElementById('rep-firma-nombre').textContent = `${p.grado} ${p.nombre}`;
+        document.getElementById('rep-firma-origen').textContent = `Mando Reconcentrado — ${p.origen}`;
+        document.getElementById('rep-firma-jefe').textContent = p.jefeInmediato || 'Jefatura de Comisaría 14 · Distrito Central';
+      }
+
+      // Master Render
+      function renderAll() {
+        const stats = computeStats();
+        renderHeader(stats);
+        renderResumen(stats);
+        renderBitacora();
+        renderEvaluacion(stats);
+        renderInforme(stats);
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      }
+
+      // Switch Tab
+      function switchTab(tabName) {
+        activeTab = tabName;
+        const tabs = ['resumen', 'registrar', 'bitacora', 'evaluacion', 'informe'];
+        tabs.forEach(t => {
+          const sec = document.getElementById('view-' + t);
+          if (sec) {
+            if (t === tabName) sec.classList.remove('hidden');
+            else sec.classList.add('hidden');
+          }
+        });
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          if (btn.dataset.tab === tabName) {
+            btn.classList.add('active');
+            btn.classList.remove('text-slate-600');
+          } else {
+            btn.classList.remove('active');
+            btn.classList.add('text-slate-600');
+          }
+        });
+        renderAll();
+      }
+
+      // Update form subtypes & metric blocks based on selected pillar
+      function updateFormPillarUI(pilar, selectedSubtype) {
+        const select = document.getElementById('f-subtipo');
+        const options = SUBTYPES[pilar] || SUBTYPES.positivos;
+        select.innerHTML = options.map(opt => `<option value="${escapeHtml(opt)}">${escapeHtml(opt)}</option>`).join('');
+        if (selectedSubtype && options.includes(selectedSubtype)) {
+          select.value = selectedSubtype;
+        }
+        document.getElementById('metrics-positivos').classList.toggle('hidden', pilar !== 'positivos');
+        document.getElementById('metrics-supervision').classList.toggle('hidden', pilar !== 'supervision');
+        document.getElementById('metrics-incidencia').classList.toggle('hidden', pilar !== 'incidencia');
+      }
+
+      function resetActivityForm() {
+        document.getElementById('edit-id').value = '';
+        document.getElementById('form-title').textContent = 'Registrar Actividad Operativa Diaria';
+        document.getElementById('btn-submit-label').textContent = 'Guardar Actividad';
+        document.getElementById('btn-cancel-edit').classList.add('hidden');
+
+        const today = getTodayISO();
+        document.getElementById('f-fecha').value = today;
+        document.getElementById('f-hora').value = new Date().toTimeString().slice(0, 5);
+        document.getElementById('f-fase').value = getPhaseForDate(today);
+        document.getElementById('f-turno').value = 'Diurno';
+        document.getElementById('f-sector').value = state.profile.sector || '';
+        document.querySelector('input[name="pilar"][value="positivos"]').checked = true;
+        updateFormPillarUI('positivos');
+
+        document.getElementById('m-capturas').value = 0;
+        document.getElementById('m-armas').value = 0;
+        document.getElementById('m-vehiculos').value = 0;
+        document.getElementById('m-identificaciones').value = 0;
+        document.getElementById('m-operativos').value = 1;
+        document.getElementById('m-patrullajes').value = 1;
+        document.getElementById('m-agentes').value = 0;
+        document.getElementById('m-operativos-sup').value = 0;
+        document.getElementById('m-vida').value = 0;
+        document.getElementById('m-patrimonio').value = 1;
+        document.getElementById('m-otros').value = 0;
+
+        document.getElementById('f-descripcion').value = '';
+        document.getElementById('f-novedades').value = '';
+        document.getElementById('f-correctivas').value = '';
+        document.getElementById('f-ddhh').checked = true;
+      }
+
+      function loadActivityIntoForm(act) {
+        document.getElementById('edit-id').value = act.id;
+        document.getElementById('form-title').textContent = 'Editar Actividad Registrada';
+        document.getElementById('btn-submit-label').textContent = 'Actualizar Actividad';
+        document.getElementById('btn-cancel-edit').classList.remove('hidden');
+
+        document.getElementById('f-fecha').value = act.fecha || getTodayISO();
+        document.getElementById('f-hora').value = act.hora || '';
+        document.getElementById('f-fase').value = act.fase || getPhaseForDate(act.fecha);
+        document.getElementById('f-turno').value = act.turno || 'Diurno';
+        document.getElementById('f-sector').value = act.sector || '';
+        const radio = document.querySelector(`input[name="pilar"][value="${act.pilar}"]`);
+        if (radio) radio.checked = true;
+        updateFormPillarUI(act.pilar, act.subtipo);
+        document.getElementById('f-canal').value = act.canalReporte || 'CECOIN';
+
+        const m = act.metricas || {};
+        document.getElementById('m-capturas').value = m.capturas || 0;
+        document.getElementById('m-armas').value = m.armas || 0;
+        document.getElementById('m-vehiculos').value = m.vehiculos || 0;
+        document.getElementById('m-identificaciones').value = m.identificaciones || 0;
+        document.getElementById('m-operativos').value = m.operativos || 0;
+        document.getElementById('m-patrullajes').value = m.patrullajesSupervisados || 0;
+        document.getElementById('m-agentes').value = m.agentesVerificados || 0;
+        document.getElementById('m-operativos-sup').value = m.operativos || 0;
+        document.getElementById('m-vida').value = m.hechosVida || 0;
+        document.getElementById('m-patrimonio').value = m.hechosPatrimonio || 0;
+        document.getElementById('m-otros').value = m.otrosIncidentes || 0;
+
+        document.getElementById('f-descripcion').value = act.descripcion || '';
+        document.getElementById('f-novedades').value = act.novedades || '';
+        document.getElementById('f-correctivas').value = act.medidasCorrectivas || '';
+        document.getElementById('f-ddhh').checked = act.ddhhCumplido !== false;
+
+        switchTab('registrar');
+      }
+
+      function loadDemoData() {
+        const demoActivities = [
+          {
+            id: 'demo-1',
+            fecha: '2026-11-25',
+            hora: '07:30',
+            fase: 'Fase II',
+            turno: 'Diurno',
+            sector: 'Subestación 14-11 · Zona 7',
+            pilar: 'supervision',
+            subtipo: 'Presentación, inducción y despliegue territorial',
+            canalReporte: 'Jefatura Comisaría 14',
+            descripcion: 'Presentación oficial ante Jefatura de Comisaría 14, recepción de mapa de calor de incidencia criminal y despliegue inicial con personal asignado al sector.',
+            novedades: 'Dos puntos de parada de transporte público sin cobertura en hora pico matutina.',
+            medidasCorrectivas: 'Se asignó patrullaje motorizado dinámico entre 06:30 y 08:30 horas.',
+            ddhhCumplido: true,
+            metricas: { patrullajesSupervisados: 4, agentesVerificados: 14, operativos: 1 }
+          },
+          {
+            id: 'demo-2',
+            fecha: '2026-11-28',
+            hora: '16:15',
+            fase: 'Fase III',
+            turno: 'Diurno',
+            sector: 'Calzada San Juan · Zona 7',
+            pilar: 'positivos',
+            subtipo: 'Operativo focalizado / Puesto de registro',
+            canalReporte: 'CECOIN',
+            descripcion: 'Ejecución de puesto de registro vehicular e identificación de personas mediante dispositivo MI3 en coordinación con unidades de Comisaría 14.',
+            novedades: 'Alta circulación de motocicletas sin placas visibles.',
+            medidasCorrectivas: 'Coordinación con PMT y refuerzo de verificación de solvencias en horario vespertino.',
+            ddhhCumplido: true,
+            metricas: { capturas: 2, armas: 1, vehiculos: 0, identificaciones: 48, operativos: 2 }
+          },
+          {
+            id: 'demo-3',
+            fecha: '2026-12-03',
+            hora: '20:40',
+            fase: 'Fase III',
+            turno: 'Nocturno',
+            sector: 'Colonia La Verbena · Zona 7',
+            pilar: 'supervision',
+            subtipo: 'Verificación de presencia, disciplina y consignas del personal',
+            canalReporte: 'Águila Séptimo (110)',
+            descripcion: 'Revista nocturna a unidades motorizadas y radio patrullas del sector, verificando uniformidad (Orden General 02-2025), equipo y reporte radial sin novedad.',
+            novedades: 'Sin novedades disciplinarias; personal completo en sus sectores.',
+            medidasCorrectivas: 'Se reiteraron consignas de reporte periódico a Águila Séptimo (110).',
+            ddhhCumplido: true,
+            metricas: { patrullajesSupervisados: 6, agentesVerificados: 18, operativos: 1 }
+          },
+          {
+            id: 'demo-4',
+            fecha: '2026-12-08',
+            hora: '19:10',
+            fase: 'Fase III',
+            turno: 'Nocturno',
+            sector: 'Anillo Periférico · Comisaría 14',
+            pilar: 'incidencia',
+            subtipo: 'Hecho contra el patrimonio (robo / hurto / extorsión)',
+            canalReporte: 'CECOIN',
+            descripcion: 'Atención a denuncia ciudadana por robo de motocicleta en sector comercial; se activó cierre de rutas y rastreo inmediato.',
+            novedades: 'Vulnerabilidad por baja iluminación en callejón de salida hacia Periférico.',
+            medidasCorrectivas: 'Se propuso patrullaje estacionario en horario de 18:00 a 21:00 horas.',
+            ddhhCumplido: true,
+            metricas: { hechosVida: 0, hechosPatrimonio: 1, otrosIncidentes: 0 }
+          },
+          {
+            id: 'demo-5',
+            fecha: '2026-12-14',
+            hora: '14:20',
+            fase: 'Fase III',
+            turno: 'Diurno',
+            sector: 'Zona 11 · Sector Comercial',
+            pilar: 'positivos',
+            subtipo: 'Recuperación de vehículo o motocicleta',
+            canalReporte: 'CECOIN',
+            descripcion: 'Localización y recuperación de motocicleta con reporte de robo vigente durante patrullaje preventivo focalizado y captura de un presunto responsable.',
+            novedades: 'Sin novedades en traslado y puesta a disposición judicial.',
+            medidasCorrectivas: 'Documentación completa remitida a CECOIN y Jefatura de Comisaría 14.',
+            ddhhCumplido: true,
+            metricas: { capturas: 1, armas: 0, vehiculos: 1, identificaciones: 22, operativos: 1 }
+          },
+          {
+            id: 'demo-6',
+            fecha: '2026-12-22',
+            hora: '10:00',
+            fase: 'Fase IV',
+            turno: 'Diurno',
+            sector: 'Comisaría 14 · Distrito Central',
+            pilar: 'supervision',
+            subtipo: 'Coordinación operativa con Jefatura de Comisaría 14 / Distrito',
+            canalReporte: 'División de Operaciones Conjuntas (SGO)',
+            descripcion: 'Evaluación comparativa de incidencia criminal de la Fase IV, ajuste de consignas por temporada navideña y seguimiento a metas de reducción.',
+            novedades: 'Incremento de flujo comercial por fiestas de fin de año.',
+            medidasCorrectivas: 'Ampliación de presencia preventiva en mercados y agencias bancarias del sector.',
+            ddhhCumplido: true,
+            metricas: { patrullajesSupervisados: 8, agentesVerificados: 24, operativos: 2 }
+          }
+        ];
+
+        state.activities = demoActivities;
+        if (!state.profile.sector) {
+          state.profile.sector = 'Subestación 14-11 · Zona 7 y 11';
+        }
+        state.evaluation.responsabilidadesCumplidas = [true, true, true, true, true, true, true, true, true];
+        state.evaluation.metaHechosPositivos = 10;
+        state.evaluation.metaSupervisiones = 5;
+        state.evaluation.conclusionesFinales = 'Durante la reconcentración operativa en Comisaría 14 se fortaleció la supervisión directa del personal en calle y la coordinación con CECOIN y Águila Séptimo (110), logrando mantener baja la incidencia criminal y resultados positivos verificables.';
+        state.evaluation.propuestasPrevencion = 'Mantener puestos de registro móviles en Calzada San Juan y refuerzo motorizado en horario de 18:00 a 21:00 horas en accesos al Anillo Periférico.';
+        saveState();
+        renderAll();
+        showToast('Se cargaron 6 registros de ejemplo. Puedes editarlos o limpiarlos cuando inicies tu bitácora real.', 'success');
+      }
+
+      // Export CSV
+      function exportCSV() {
+        if (state.activities.length === 0) {
+          showToast('No hay actividades registradas para exportar.', 'warning');
+          return;
+        }
+        const headers = [
+          'Fecha', 'Hora', 'Fase', 'Turno', 'Sector', 'Pilar', 'Tipo', 'Canal',
+          'Capturas', 'Armas', 'Vehiculos', 'Identificaciones', 'Operativos',
+          'Patrullajes_Supervisados', 'Agentes_Verificados', 'Hechos_Vida', 'Hechos_Patrimonio', 'Otros_Incidentes',
+          'Descripcion', 'Novedades', 'Medidas_Correctivas', 'DDHH_Cumplido'
+        ];
+        const rows = state.activities.map(a => {
+          const m = a.metricas || {};
+          return [
+            a.fecha, a.hora, a.fase, a.turno, a.sector, a.pilar, a.subtipo, a.canalReporte,
+            m.capturas || 0, m.armas || 0, m.vehiculos || 0, m.identificaciones || 0, m.operativos || 0,
+            m.patrullajesSupervisados || 0, m.agentesVerificados || 0, m.hechosVida || 0, m.hechosPatrimonio || 0, m.otrosIncidentes || 0,
+            a.descripcion, a.novedades, a.medidasCorrectivas, a.ddhhCumplido !== false ? 'Sí' : 'No'
+          ].map(v => `"${String(v == null ? '' : v).replace(/"/g, '""')}"`).join(',');
+        });
+        const csv = '\uFEFF' + headers.join(',') + '\n' + rows.join('\n');
+        downloadBlob(csv, `Bitacora_SGO_39_2026_${getTodayISO()}.csv`, 'text/csv;charset=utf-8;');
+        showToast('Archivo CSV exportado correctamente.', 'success');
+      }
+
+      function exportJSON() {
+        const json = JSON.stringify(state, null, 2);
+        downloadBlob(json, `Respaldo_Bitacora_SGO_39_2026_${getTodayISO()}.json`, 'application/json');
+        showToast('Respaldo JSON descargado.', 'success');
+      }
+
+      function downloadBlob(content, filename, mimeType) {
+        const blob = new Blob([content], { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+
+      function copyReportText() {
+        const stats = computeStats();
+        const p = state.profile;
+        const ev = state.evaluation;
+        const lines = [
+          'POLICÍA NACIONAL CIVIL — SUBDIRECCIÓN GENERAL DE OPERACIONES',
+          'INFORME TÉCNICO INDIVIDUAL DE EVALUACIÓN DE RESULTADOS — PLAN No. SGO/39-2026',
+          '----------------------------------------------------------------------',
+          `Mando: ${p.grado} ${p.nombre}`,
+          `Unidad de Origen: ${p.origen}`,
+          `Comisaría Designada: ${p.comisaria} | Sector: ${p.sector || 'Sin asignar'}`,
+          `Período Evaluado: 25 nov 2026 al 31 dic 2026 (37 días)`,
+          '',
+          'RESUMEN DE RESULTADOS CONSOLIDADOS:',
+          `- Días con registro: ${stats.daysLogged} / 37 (${stats.totalRecords} actividades)`,
+          `- Hechos Positivos acumulados: ${stats.totalAccionesPositivas} (Capturas: ${stats.capturas}, Operativos: ${stats.operativos}, Armas: ${stats.armas}, Vehículos: ${stats.vehiculos}, Identificaciones: ${stats.identificaciones})`,
+          `- Supervisión Efectiva: ${stats.supervisionCount} registros (${stats.patrullajesSupervisados} patrullajes supervisados, ${stats.agentesVerificados} agentes verificados)`,
+          `- Incidencia Criminal registrada: ${stats.totalIncidenciaHechos} (Vida: ${stats.hechosVida}, Patrimonio: ${stats.hechosPatrimonio}, Otros: ${stats.otrosIncidentes})`,
+          '',
+          'MATRIZ DE PONDERACIÓN (SECCIÓN VII.A):',
+          `- Reducción incidencia criminal (60%): ${stats.ptsIncidencia.toFixed(1)} pts (${stats.pctIncidencia.toFixed(1)}%)`,
+          `- Incremento de hechos positivos (30%): ${stats.ptsPositivos.toFixed(1)} pts (${stats.pctPositivos.toFixed(1)}%)`,
+          `- Supervisión efectiva (10%): ${stats.ptsSupervision.toFixed(1)} pts (${stats.pctSupervision.toFixed(1)}%)`,
+          `- TOTAL PONDERADO: ${stats.totalScore.toFixed(1)}%`,
+          `- RECOMENDACIÓN (SECCIÓN VII.B): ${stats.activeCriteria ? stats.activeCriteria.condicion + ' -> ' + stats.activeCriteria.medida : 'Pendiente'}`,
+          '',
+          'CONCLUSIONES:',
+          ev.conclusionesFinales || 'Sin redactar.',
+          '',
+          'PROPUESTAS DE PREVENCIÓN:',
+          ev.propuestasPrevencion || 'Sin redactar.'
+        ];
+        const text = lines.join('\n');
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text)
+            .then(() => showToast('Texto del informe copiado al portapapeles.', 'success'))
+            .catch(() => fallbackCopy(text));
+        } else {
+          fallbackCopy(text);
+        }
+      }
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          showToast('Texto del informe copiado al portapapeles.', 'success');
+        } catch (err) {
+          showToast('No se pudo copiar automáticamente; usa Imprimir / Guardar PDF.', 'warning');
+        }
+        ta.remove();
+      }
+
+      // Bind all events
+      function initEvents() {
+        // Tabs
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+        });
+
+        // Empty state buttons
+        document.getElementById('btn-start-first').addEventListener('click', () => {
+          resetActivityForm();
+          switchTab('registrar');
+        });
+        document.getElementById('btn-load-demo-empty').addEventListener('click', loadDemoData);
+        document.getElementById('btn-demo-top').addEventListener('click', () => {
+          if (state.activities.length > 0) {
+            openConfirm('Cargar datos de ejemplo', 'Esto reemplazará los registros actuales con 6 actividades de demostración. ¿Deseas continuar?', loadDemoData);
+          } else {
+            loadDemoData();
+          }
+        });
+        document.getElementById('btn-export-json-top').addEventListener('click', exportJSON);
+
+        // Form pillar change
+        document.querySelectorAll('input[name="pilar"]').forEach(r => {
+          r.addEventListener('change', e => updateFormPillarUI(e.target.value));
+        });
+
+        // Auto-select phase on date change
+        document.getElementById('f-fecha').addEventListener('change', e => {
+          document.getElementById('f-fase').value = getPhaseForDate(e.target.value);
+        });
+
+        // Reset / Cancel form
+        document.getElementById('btn-reset-form').addEventListener('click', resetActivityForm);
+        document.getElementById('btn-cancel-edit').addEventListener('click', () => {
+          resetActivityForm();
+          switchTab('bitacora');
+        });
+
+        // Submit Activity Form
+        document.getElementById('activity-form').addEventListener('submit', e => {
+          e.preventDefault();
+          const editId = document.getElementById('edit-id').value;
+          const pilar = document.querySelector('input[name="pilar"]:checked').value;
+          const record = {
+            id: editId || ('act-' + Date.now() + '-' + Math.floor(Math.random() * 1000)),
+            fecha: document.getElementById('f-fecha').value,
+            hora: document.getElementById('f-hora').value,
+            fase: document.getElementById('f-fase').value,
+            turno: document.getElementById('f-turno').value,
+            sector: document.getElementById('f-sector').value.trim(),
+            pilar,
+            subtipo: document.getElementById('f-subtipo').value,
+            canalReporte: document.getElementById('f-canal').value,
+            descripcion: document.getElementById('f-descripcion').value.trim(),
+            novedades: document.getElementById('f-novedades').value.trim(),
+            medidasCorrectivas: document.getElementById('f-correctivas').value.trim(),
+            ddhhCumplido: document.getElementById('f-ddhh').checked,
+            metricas: pilar === 'positivos'
+              ? {
+                  capturas: Number(document.getElementById('m-capturas').value || 0),
+                  armas: Number(document.getElementById('m-armas').value || 0),
+                  vehiculos: Number(document.getElementById('m-vehiculos').value || 0),
+                  identificaciones: Number(document.getElementById('m-identificaciones').value || 0),
+                  operativos: Number(document.getElementById('m-operativos').value || 0)
+                }
+              : pilar === 'supervision'
+                ? {
+                    patrullajesSupervisados: Number(document.getElementById('m-patrullajes').value || 0),
+                    agentesVerificados: Number(document.getElementById('m-agentes').value || 0),
+                    operativos: Number(document.getElementById('m-operativos-sup').value || 0)
+                  }
+                : {
+                    hechosVida: Number(document.getElementById('m-vida').value || 0),
+                    hechosPatrimonio: Number(document.getElementById('m-patrimonio').value || 0),
+                    otrosIncidentes: Number(document.getElementById('m-otros').value || 0)
+                  }
+          };
+
+          if (editId) {
+            const idx = state.activities.findIndex(a => a.id === editId);
+            if (idx >= 0) state.activities[idx] = record;
+            showToast('Actividad actualizada correctamente.', 'success');
+          } else {
+            state.activities.push(record);
+            showToast('Actividad guardada en tu bitácora.', 'success');
+          }
+          saveState();
+          resetActivityForm();
+          switchTab('bitacora');
+        });
+
+        // Bitácora filters & actions
+        document.getElementById('filter-search').addEventListener('input', renderBitacora);
+        document.getElementById('filter-pilar').addEventListener('change', renderBitacora);
+        document.getElementById('filter-fase').addEventListener('change', renderBitacora);
+
+        document.getElementById('bitacora-list').addEventListener('click', e => {
+          const btn = e.target.closest('button[data-action]');
+          if (!btn) return;
+          const id = btn.dataset.id;
+          const action = btn.dataset.action;
+          const act = state.activities.find(a => a.id === id);
+          if (!act) return;
+
+          if (action === 'edit') {
+            loadActivityIntoForm(act);
+          } else if (action === 'duplicate') {
+            const copy = JSON.parse(JSON.stringify(act));
+            copy.id = 'act-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+            copy.fecha = getTodayISO();
+            copy.fase = getPhaseForDate(copy.fecha);
+            state.activities.push(copy);
+            saveState();
+            renderAll();
+            showToast('Registro duplicado con la fecha actual.', 'success');
+          } else if (action === 'delete') {
+            openConfirm('Eliminar actividad', '¿Seguro que deseas eliminar este registro de tu bitácora?', () => {
+              state.activities = state.activities.filter(a => a.id !== id);
+              saveState();
+              renderAll();
+              showToast('Registro eliminado.', 'warning');
+            });
+          }
+        });
+
+        document.getElementById('btn-export-csv').addEventListener('click', exportCSV);
+        document.getElementById('btn-export-json').addEventListener('click', exportJSON);
+        document.getElementById('input-import-json').addEventListener('change', e => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = ev => {
+            try {
+              const parsed = JSON.parse(ev.target.result);
+              if (!parsed || !Array.isArray(parsed.activities)) {
+                showToast('El archivo JSON no tiene un formato de bitácora válido.', 'error');
+                return;
+              }
+              const def = defaultState();
+              state = {
+                profile: Object.assign({}, def.profile, parsed.profile || {}),
+                activities: parsed.activities,
+                evaluation: Object.assign({}, def.evaluation, parsed.evaluation || {})
+              };
+              saveState();
+              renderAll();
+              showToast(`Respaldo importado (${state.activities.length} registros).`, 'success');
+            } catch (err) {
+              showToast('No se pudo leer el archivo JSON.', 'error');
+            }
+          };
+          reader.readAsText(file);
+          e.target.value = '';
+        });
+
+        document.getElementById('btn-clear-all').addEventListener('click', () => {
+          if (state.activities.length === 0) {
+            showToast('La bitácora ya está vacía.', 'warning');
+            return;
+          }
+          openConfirm('Limpiar toda la bitácora', 'Se eliminarán todos los registros diarios guardados (tu ficha de mando se conservará). ¿Deseas continuar?', () => {
+            state.activities = [];
+            saveState();
+            renderAll();
+            showToast('Bitácora limpiada.', 'warning');
+          });
+        });
+
+        // Evaluation inputs
+        document.getElementById('eval-baseline-inc').addEventListener('input', e => {
+          state.evaluation.lineaBaseIncidencia = Math.max(1, Number(e.target.value || 1));
+          saveState();
+          renderAll();
+        });
+        document.getElementById('eval-meta-pos').addEventListener('input', e => {
+          state.evaluation.metaHechosPositivos = Math.max(1, Number(e.target.value || 1));
+          saveState();
+          renderAll();
+        });
+        document.getElementById('eval-meta-sup').addEventListener('input', e => {
+          state.evaluation.metaSupervisiones = Math.max(1, Number(e.target.value || 1));
+          saveState();
+          renderAll();
+        });
+        document.getElementById('eval-manual-inc').addEventListener('input', e => {
+          const val = e.target.value.trim();
+          state.evaluation.ajusteManualIncidencia = val === '' ? null : Math.max(0, Math.min(100, Number(val)));
+          saveState();
+          renderAll();
+        });
+        document.getElementById('responsibilities-list').addEventListener('change', e => {
+          const cb = e.target.closest('input[data-resp-idx]');
+          if (!cb) return;
+          const idx = Number(cb.dataset.respIdx);
+          state.evaluation.responsabilidadesCumplidas[idx] = cb.checked;
+          saveState();
+          renderAll();
+        });
+
+        // Report inputs & buttons
+        document.getElementById('rep-input-conclusiones').addEventListener('input', e => {
+          state.evaluation.conclusionesFinales = e.target.value;
+          saveState();
+          document.getElementById('rep-conclusiones-text').textContent = e.target.value.trim() || 'Pendiente de redacción por el mando reconcentrado en el cuadro superior antes de imprimir.';
+        });
+        document.getElementById('rep-input-propuestas').addEventListener('input', e => {
+          state.evaluation.propuestasPrevencion = e.target.value;
+          saveState();
+          document.getElementById('rep-propuestas-text').textContent = e.target.value.trim() || 'Pendiente de redacción de recomendaciones técnicas para la Jefatura de Comisaría 14.';
+        });
+        document.getElementById('btn-print-report').addEventListener('click', () => window.print());
+        document.getElementById('btn-copy-report').addEventListener('click', copyReportText);
+
+        // Profile Modal
+        const modalProfile = document.getElementById('modal-profile');
+        function openProfileModal() {
+          const p = state.profile;
+          document.getElementById('p-grado').value = p.grado || '';
+          document.getElementById('p-nombre').value = p.nombre || '';
+          document.getElementById('p-origen').value = p.origen || '';
+          document.getElementById('p-comisaria').value = p.comisaria || '';
+          document.getElementById('p-sector').value = p.sector || '';
+          document.getElementById('p-turno').value = p.turno || '';
+          document.getElementById('p-jefe').value = p.jefeInmediato || '';
+          modalProfile.classList.remove('hidden');
+          modalProfile.classList.add('flex');
+        }
+        function closeProfileModal() {
+          modalProfile.classList.add('hidden');
+          modalProfile.classList.remove('flex');
+        }
+        document.getElementById('btn-open-profile').addEventListener('click', openProfileModal);
+        document.getElementById('btn-close-profile').addEventListener('click', closeProfileModal);
+        document.getElementById('btn-cancel-profile').addEventListener('click', closeProfileModal);
+        modalProfile.addEventListener('click', e => {
+          if (e.target === modalProfile) closeProfileModal();
+        });
+        document.getElementById('profile-form').addEventListener('submit', e => {
+          e.preventDefault();
+          state.profile = {
+            grado: document.getElementById('p-grado').value.trim(),
+            nombre: document.getElementById('p-nombre').value.trim(),
+            origen: document.getElementById('p-origen').value.trim(),
+            comisaria: document.getElementById('p-comisaria').value.trim(),
+            sector: document.getElementById('p-sector').value.trim(),
+            turno: document.getElementById('p-turno').value.trim(),
+            jefeInmediato: document.getElementById('p-jefe').value.trim()
+          };
+          saveState();
+          closeProfileModal();
+          renderAll();
+          showToast('Ficha del mando actualizada.', 'success');
+        });
+
+        // Confirm Modal
+        document.getElementById('btn-confirm-cancel').addEventListener('click', closeConfirm);
+        document.getElementById('btn-confirm-ok').addEventListener('click', () => {
+          const cb = pendingConfirmCallback;
+          closeConfirm();
+          if (typeof cb === 'function') cb();
+        });
+      }
+
+      // Initialize
+      resetActivityForm();
+      initEvents();
+      renderAll();
+    })();
+  </script>
+
+  <script>
+    (function () {
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('./sw.js').catch(function () {});
+        });
+      }
+      var deferredPrompt = null;
+      var installBtn = document.getElementById('btn-install-pwa');
+      window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (installBtn) installBtn.classList.remove('hidden');
+      });
+      if (installBtn) {
+        installBtn.addEventListener('click', function () {
+          if (!deferredPrompt) return;
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function () {
+            deferredPrompt = null;
+            installBtn.classList.add('hidden');
+          });
+        });
+      }
+      window.addEventListener('appinstalled', function () {
+        if (installBtn) installBtn.classList.add('hidden');
+      });
+    })();
+  </script>
+</body>
+</html>
